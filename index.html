@@ -59,8 +59,8 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 .unit.wide{grid-column:1 / -1}
 .unit h2{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
 .unit table{font-size:12.5px}
-.unit td{padding:3px 6px;border-top:1px solid var(--line);vertical-align:top}
-.unit tr:first-child td{border-top:none}
+.unit th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:2px 6px 4px;border-bottom:1px solid var(--line)}
+.unit tbody tr:first-child td{border-top:none}
 .unit td.t{color:var(--muted);white-space:nowrap;width:92px}
 .unit td.s{white-space:nowrap;color:var(--muted)}
 .unit tr.ask td{background:var(--ask-bg);color:var(--ask)}
@@ -94,13 +94,13 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 <div class="banner" id="banner" hidden></div>
 <div class="wrap">
 <table class="main">
-  <thead><tr><th>Cluster</th><th>Searches / mo</th><th>Prompts: bank · Peec</th><th>Truein today</th><th>In-house: plan + gap</th><th>Lists: pitch · live</th><th>Reddit</th><th>Misc</th><th>To decide</th><th>Owner</th><th>Priority</th><th>ETA</th><th>Status</th></tr></thead>
+  <thead><tr><th>Cluster</th><th>Google searches / month</th><th>Prompts: in bank · tracked in Peec</th><th>Truein today</th><th>In-house pieces</th><th>Off-site lists: to pitch · live</th><th>Reddit threads</th><th>Misc</th><th>To decide</th><th>Owner</th><th>Priority</th><th>ETA</th><th>Status</th></tr></thead>
   <tbody id="list"></tbody>
 </table>
 </div>
 
 <script>
-const OWNERS=['','In-house (Shreyas)','In-house (Akash)','Agency (DerivateX)','New hire','In-house + agency'];
+const OWNERS=['','In-house','Agency (DerivateX)','New hire'];
 const PRIORITIES=['','P1 now','P2 next','P3 later','Park'];
 const STATUSES=['','Not started','Briefed','In progress','Live','Parked'];
 const UNITS={in:'In-house pieces',off:'Off-site lists',reddit:'Reddit',misc:'Misc (YouTube, LinkedIn, reviews, GBP)',proof:'Proof asset'};
@@ -394,7 +394,7 @@ function renderList(){
     const row=document.createElement('tr'); row.className='row'; row.id=c.id; row.dataset.id=c.id;
     row.innerHTML=`<td class="name" role="button" tabindex="0" aria-expanded="false"><b>${esc(c.name)}</b><small>${c.market} · R${c.ring} · ${esc(c.tier)} · ${esc(c.prio)} suggested</small></td>
       <td class="num">${fmt(c.searches)}</td><td class="c" title="${esc(c.prompts||c.peec)}">${promptCounts(c).join(' · ')}</td><td><span class="pill ${c.truein}">${c.truein}</span></td>
-      <td class="c">${countUnit(c,'in')-gapCount(c)} + ${gapCount(c)}</td><td class="c">${os.target} · ${os.live}</td><td class="c">${countUnit(c,'reddit')}</td><td class="c">${countUnit(c,'misc')}</td><td class="c" data-askcount>${askCount(c)}</td>
+      <td class="c">${countUnit(c,'in')}${gapCount(c)?' ('+gapCount(c)+' gap)':''}</td><td class="c">${os.target} · ${os.live}</td><td class="c">${countUnit(c,'reddit')}</td><td class="c">${countUnit(c,'misc')}</td><td class="c" data-askcount>${askCount(c)}</td>
       <td class="f">${sel('owner',c.id,OWNERS)}</td><td class="f">${sel('priority',c.id,PRIORITIES)}</td><td class="f"><input type="text" data-k="eta" data-id="${c.id}" id="eta-${c.id}" placeholder="16 Nov"></td><td class="f">${sel('status',c.id,STATUSES)}</td>`;
     const det=document.createElement('tr'); det.className='detail'; det.hidden=true; det.dataset.id=c.id;
     det.innerHTML=`<td colspan="13">${promptCounts(c)[1]<2?`<div class="pre"><b>Before deciding this cluster</b><ol><li>Build the prompt bank.</li><li>Put it in Peec, run 2 to 4 weeks.</li><li>Read what gets cited.</li><li>Then set depth, page types and off-site targets. Until then: hub only.</li></ol></div>`:''}
@@ -409,7 +409,8 @@ function unitHtml(c,u){
   const rows=c.pieces.filter(p=>p.u===u);
   const body=rows.map(p=> p.ask ? `<tr class="ask"><td class="t">To decide</td><td colspan="3">${esc(p.n)}</td></tr>` : `<tr${p.s==='Gap'?' class="gap"':''}><td class="t">${esc(p.t||'')}</td><td>${esc(p.n)}</td><td class="s">${esc(p.s||'')}</td><td class="s">${esc(p.x||'')}</td></tr>`).join('');
   const wide=(u==='in'||u==='off')?' wide':'';
-  return `<div class="unit${wide}"><h2>${esc(UNITS[u])}</h2><table><tbody>${body}</tbody><tbody data-asks="${c.id}:${u}"></tbody></table>
+  const cols = u==='in' ? ['Type','Piece','Week or status','Truein today'] : u==='off' ? ['Type','Page','Status','Citations'] : u==='reddit' ? ['Type','Thread','Status','Citations'] : ['Type','Item','Status','Note'];
+  return `<div class="unit${wide}"><h2>${esc(UNITS[u])}</h2><table><thead><tr>${cols.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${body}</tbody><tbody data-asks="${c.id}:${u}"></tbody></table>
   <form class="addask" data-id="${c.id}" data-unit="${u}"><input type="text" placeholder="Add something to decide, with its objective" aria-label="Objective" required id="ask-${c.id}-${u}"><button class="btn" type="submit">Add</button></form></div>`;
 }
 function applyFilters(){
