@@ -453,7 +453,7 @@ function banner(msg){ const b=$('#banner'); if(!msg){ b.hidden=true; return } b.
 
 // ---- store: Supabase REST. Reads and writes are open to anyone with the link.
 function hdr(write){ const h={'apikey':SB_KEY,'Content-Type':'application/json'}; if(write){ h['Prefer']='return=representation' } return h }
-async function sb(path,opt){ const r=await fetch(SB_URL+'/rest/v1/'+path,opt); if(!r.ok){ const t=await r.text(); const e=new Error(t.slice(0,200)); e.status=r.status; throw e } return r.status===204?null:r.json() }
+async function sb(path,opt){ const r=await fetch(SB_URL+'/rest/v1/'+path,opt); if(!r.ok){ const t=await r.text(); const e=new Error(t.slice(0,200)); e.status=r.status; throw e } const t=await r.text(); return t?JSON.parse(t):null }
 function writeErr(e){ banner('Not saved: '+e.message) }
 let loading=false;
 async function load(){ if(loading) return; loading=true;
