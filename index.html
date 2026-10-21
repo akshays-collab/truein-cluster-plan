@@ -19,6 +19,10 @@
   --accent:#5EB8D3; --accent-ink:#0F161C; --ask:#F2C56B; --ask-bg:#3A2E12; --ok:#6FC08E; --okbg:#1E3A2A; --weakbg:#3A2E12; color-scheme:dark }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:13px;line-height:1.4;padding-block:16px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+.tab{font:inherit;font-size:13px;font-weight:500;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);padding:6px 10px;cursor:pointer}
+.tab[aria-pressed="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+[data-panel][hidden]{display:none}
 .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
 h1{font-size:18px;font-weight:600;margin:0 auto 0 0}
 .chip{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;cursor:pointer}
@@ -80,6 +84,8 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 <body>
 
 
+<div class="tabs"><button class="tab" data-tab="clusters" aria-pressed="true">Clusters</button><button class="tab" data-tab="proof" aria-pressed="false">Proof and testimonials</button><button class="tab" data-tab="tech" aria-pressed="false">Tracking and technical</button></div>
+<section data-panel="clusters">
 <div class="top">
   <h1>Truein cluster plan</h1>
   <button class="chip" data-f="market" data-v="" aria-pressed="true">All</button>
@@ -101,6 +107,25 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
   <tbody id="list"></tbody>
 </table>
 </div>
+</section>
+<section data-panel="proof" hidden>
+<div class="wrap" style="padding:14px 16px;margin-bottom:10px">
+<h2 style="font-size:15px;margin:0 0 8px">Testimonials and proof: the plan</h2>
+<ol style="margin:0;padding-left:18px;max-width:110ch;line-height:1.5">
+<li><b>Inventory and verify.</b> Transcribe every video testimonial, pull the facts out of every written one (company, country, size, industry, what broke, the number that changed), and verify each number under Ankit’s claims sign-off. Consent to name the customer and the number comes first.</li>
+<li><b>Tag to a cluster.</b> Every verified story goes into the Proof asset unit of the cluster it proves. The table below is the list of clusters still waiting for one.</li>
+<li><b>One case-study page per deep cluster</b>, in the format AI already cites: customer named, numbers in the first 60 words, a before-and-after table. TrueBays’ McLaren page is cited 57 times in the GCC for doing exactly this; Truein’s SJ Contracts story is cited twice in India.</li>
+<li><b>A quote with a number on every hub and comparison page.</b> Engines cite fact-dense passages; "cut buddy punching by 30% at a 400-crew contractor" is a fact, "great product" is not.</li>
+<li><b>Videos retitled as buyer questions</b> on YouTube, and only where step 3 of a cluster shows videos get cited (in construction the cited format is the list video).</li>
+<li><b>Same customers, three more uses:</b> the asset pack for listicle pitches (editors want a named customer), G2 and Capterra reviews, and one customer-written "we tested" Reddit post, which is worth more than anything Truein posts itself.</li>
+</ol>
+</div>
+<div class="wrap"><table class="main"><thead><tr><th>Cluster</th><th>Proof still needed</th><th></th></tr></thead><tbody id="prooflist"></tbody></table></div>
+</section>
+<section data-panel="tech" hidden>
+<div class="wrap"><table class="main"><thead><tr><th>Item</th><th>Why</th><th>What</th><th>Owner</th><th>ETA</th><th>Status</th><th>Note</th></tr></thead><tbody id="techlist"></tbody></table></div>
+</section>
+
 
 <script>
 const OWNERS=['','In-house','Agency (DerivateX)','New hire'];
@@ -463,7 +488,7 @@ function unitHtml(c,u){
 }
 function applyFilters(){
   const q=filters.q.trim().toLowerCase();
-  for(const row of document.querySelectorAll('tr.row')){
+  for(const row of document.querySelectorAll('#list tr.row')){
     const c=CLUSTERS.find(x=>x.id===row.dataset.id);
     let ok=(!filters.market||c.market===filters.market)&&(!filters.ring||String(c.ring)===filters.ring);
     if(ok&&q){ ok=(c.name+' '+c.hub+' '+c.pieces.map(p=>p.n).join(' ')).toLowerCase().includes(q) }
@@ -471,14 +496,15 @@ function applyFilters(){
   }
 }
 function renderDecisions(){
-  for(const c of CLUSTERS){ const d=decisions[c.id]||{};
+  for(const c of [...CLUSTERS,...TECH]){ const d=decisions[c.id]||{};
     for(const k of ['owner','priority','eta','status','note']){ const el=document.getElementById(k+'-'+c.id); if(!el) continue; const v=d[k]||''; if(document.activeElement!==el&&el.value!==v) el.value=v; if(el.parentElement.classList.contains('f')) el.parentElement.classList.toggle('set',!!v) }
   }
 }
 function renderAsks(){
   for(const tb of document.querySelectorAll('[data-asks]')){ const [id,u]=tb.dataset.asks.split(':'); const rows=(asks[id]||[]).filter(a=>a.unit===u);
     tb.innerHTML=rows.map(a=>`<tr class="ask"><td class="t">To decide</td><td colspan="${u==='in'?1:2}">${esc(a.objective)}</td><td class="s"><button class="rm" type="button" data-rm="${esc(a.id)}">remove</button></td></tr>`).join('') }
-  for(const row of document.querySelectorAll('tr.row')){ const c=CLUSTERS.find(x=>x.id===row.dataset.id); row.querySelector('[data-askcount]').textContent=askCount(c) }
+  for(const row of document.querySelectorAll('#list tr.row')){ const c=CLUSTERS.find(x=>x.id===row.dataset.id); row.querySelector('[data-askcount]').textContent=askCount(c) }
+  if(document.querySelector('[data-panel="proof"]:not([hidden])')) renderProof();
 }
 function banner(msg){ const b=$('#banner'); if(!msg){ b.hidden=true; return } b.textContent=msg; b.hidden=false }
 
@@ -518,11 +544,57 @@ document.addEventListener('keydown',e=>{ const name=e.target.closest('td.name');
 document.addEventListener('input',e=>{ const el=e.target; if(el.dataset.k&&el.dataset.id) saveDecision(el.dataset.id,el.dataset.k,el.value) });
 document.addEventListener('submit',e=>{ const f=e.target.closest('.addask'); if(!f) return; e.preventDefault(); const inp=f.querySelector('input'); const v=inp.value.trim(); if(!v) return; addAsk(f.dataset.id,f.dataset.unit,v); inp.value='' });
 $('#q').addEventListener('input',e=>{ filters.q=e.target.value; applyFilters() });
-$('#expandAll').addEventListener('click',()=>{ const rows=[...document.querySelectorAll('tr.row:not([hidden])')]; const anyClosed=rows.some(r=>r.querySelector('.name').getAttribute('aria-expanded')!=='true'); rows.forEach(r=>toggle(r,anyClosed)); $('#expandAll').textContent=anyClosed?'Collapse all':'Expand all' });
+$('#expandAll').addEventListener('click',()=>{ const rows=[...document.querySelectorAll('#list tr.row:not([hidden])')]; const anyClosed=rows.some(r=>r.querySelector('.name').getAttribute('aria-expanded')!=='true'); rows.forEach(r=>toggle(r,anyClosed)); $('#expandAll').textContent=anyClosed?'Collapse all':'Expand all' });
 $('#copyTsv').addEventListener('click',async()=>{ const t=tsv(); try{ await navigator.clipboard.writeText(t); $('#copyTsv').textContent='Copied' }catch(e){ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); $('#copyTsv').textContent='Select and copy' } setTimeout(()=>$('#copyTsv').textContent='Copy TSV',2500) });
 
+
+// ---- Tracking and technical work: each row saves Owner, ETA, Status and Note like a cluster
+const TECH=[
+ {id:'tech-01',area:'Tracking',n:'Lead-source tracking on every form',why:'No lead in Zoho carries its landing page, referrer or source; First_Visited_URL and Referrer are empty since Jan 2025 because the forms post to api.truein.com. US organic is untraceable.',what:'90-day first-party cookie (landing page, referrer, UTMs, gclid, GA client id) sent in the scheduleDemo POST and written to Zoho fields. About 2 to 3 days. Brief: audits/tracking-brief-for-akash-2026-10-20.md'},
+ {id:'tech-02',area:'Tracking',n:'GA4 demo_form_submit fired from the form',why:'The event fires on the thank-you page, which loses the session source for about half of US leads.',what:'Fire it from the form page on API success (beacon) before the redirect; keep the thank-you view as backup.'},
+ {id:'tech-03',area:'Tracking',n:'"How did you hear about us" on the demo form',why:'Most website opportunities converted on brand searches; nobody records where the name came from (ads, SDR, AI, event).',what:'Required single-choice field; value written to Zoho.'},
+ {id:'tech-04',area:'Tracking',n:'Junk path behind Sub_Source "Website"',why:'160 leads tagged "Website" (not "SEO/Website"), every one junk, never a deal.',what:'Find which form or bot path sets that tag; block or re-tag it.'},
+ {id:'tech-05',area:'Forms',n:'Demo form defects and calendar booking',why:'Four shared defects from the 17 Oct repro (button relabels and shrinks, phone widget drops focus, reCAPTCHA with no timeout, errors below the button); the April rebuild dropped calendar booking; form-start to submit fell from 56% to 11 to 21%.',what:'Fix the four; restore calendar booking; test every form end to end into Zoho.'},
+ {id:'tech-06',area:'Forms',n:'Short forms back on pricing and contact',why:'Forms on money pages gave 5 to 13 real leads a quarter until April 2026, then 0 to 1: contact routes into the demo form and the pricing CTAs were renamed.',what:'Short form on pricing and contact; keep the demo page as is.'},
+ {id:'tech-07',area:'Site',n:'Pricing schema and hreflang',why:'Four regional prices sit in one page’s code (agency P0); /gcc-blogs/ pages lack hreflang.',what:'Per-region pricing content with correct schema; hreflang on existing GCC pages. No subfolder rollout.'},
+ {id:'tech-08',area:'Site',n:'Core Web Vitals on the demo pages',why:'All three demo pages fail at p75.',what:'Fix LCP and CLS on /m/time-attendance-demo, -we and /m/time-tracking-solution.'},
+ {id:'tech-09',area:'Site',n:'Consent banner configuration',why:'Canada and five US states (CA, CO, CT, VA, UT) share the EU opt-in config; India has none; from an Indian IP only the "grant all" stub loads.',what:'Decide the US and Canada config with whoever owns privacy; test from a US IP whether the banner wipes the source.'},
+ {id:'tech-10',area:'CRM',n:'Zoho integration account',why:'Website leads have been created by a named user since 9 Jul 2026; if that account loses permissions, intake stops.',what:'Move the form-to-Zoho connection to a service account.'},
+ {id:'tech-11',area:'Measurement',n:'Peec: Truein-owned workspace',why:'The panel and three months of history sit in the agency’s account; the big questions in every market are untracked.',what:'Advanced plan (350 prompts, multi-country); agency migrates its 53 prompts and history; add the US bank, then GCC and India banks.'},
+ {id:'tech-12',area:'Measurement',n:'Citation map on the India project',why:'The map has run on US and GCC only; India clusters have no off-site targets.',what:'Run the citation-map skill on the India project; feed the India clusters.'},
+ {id:'tech-13',area:'Ops',n:'Shared GitHub repository of the AEO System folder',why:'Skills, specs and data live on one laptop.',what:'Private repo; .gitignore for lead raw files; README with the read-only rule.'}
+];
+const AREAS=['Tracking','Forms','Site','CRM','Measurement','Ops'];
+function renderTech(){
+  const tb=document.querySelector('#techlist'); if(!tb) return; tb.innerHTML='';
+  for(const t of TECH){
+    const tr=document.createElement('tr'); tr.className='row'; tr.id=t.id;
+    tr.innerHTML=`<td class="name" style="cursor:default"><b>${esc(t.n)}</b><small>${esc(t.area)}</small></td><td style="white-space:normal;min-width:260px;color:var(--muted)">${esc(t.why)}</td><td style="white-space:normal;min-width:260px">${esc(t.what)}</td>
+      <td class="f">${sel('owner',t.id,OWNERS)}</td><td class="f"><input type="text" data-k="eta" data-id="${t.id}" id="eta-${t.id}" placeholder="Nov"></td><td class="f">${sel('status',t.id,STATUSES)}</td><td class="f"><input type="text" data-k="note" data-id="${t.id}" id="note-${t.id}" placeholder="Note"></td>`;
+    tb.appendChild(tr);
+  }
+}
+// ---- Proof and testimonials: the plan, plus what every cluster still needs
+function renderProof(){
+  const tb=document.querySelector('#prooflist'); if(!tb) return; tb.innerHTML='';
+  for(const c of CLUSTERS){
+    const need=c.pieces.filter(p=>p.u==='proof').map(p=>p.n).concat((asks[c.id]||[]).filter(a=>a.unit==='proof').map(a=>a.objective));
+    if(!need.length) continue;
+    const tr=document.createElement('tr'); tr.className='row';
+    tr.innerHTML=`<td class="name" style="cursor:default"><b>${esc(c.name)}</b><small>${c.market} · ${esc(c.tier)}</small></td><td style="white-space:normal;min-width:320px">${need.map(x=>esc(x)).join('<br>')}</td><td class="c"><a href="#${c.id}" data-open="${c.id}">open cluster</a></td>`;
+    tb.appendChild(tr);
+  }
+}
+function showTab(name){
+  for(const p of document.querySelectorAll('[data-panel]')) p.hidden=p.dataset.panel!==name;
+  for(const b of document.querySelectorAll('.tab')) b.setAttribute('aria-pressed', b.dataset.tab===name);
+  if(name==='tech') renderTech(), renderDecisions(); if(name==='proof') renderProof();
+}
+document.addEventListener('click',e=>{ const b=e.target.closest('.tab'); if(b){ showTab(b.dataset.tab); history.replaceState(null,'','#'+b.dataset.tab); return }
+  const o=e.target.closest('[data-open]'); if(o){ e.preventDefault(); showTab('clusters'); const row=document.getElementById(o.dataset.open); if(row){ toggle(row,true); row.scrollIntoView() } } });
+
 renderList();
-const target=(location.hash||'').slice(1); const trow=target&&document.getElementById(target); if(trow&&trow.classList.contains('row')){ toggle(trow,true); trow.scrollIntoView() }
+const target=(location.hash||'').slice(1); if(target==='proof'||target==='tech') showTab(target); const trow=target&&document.getElementById(target); if(trow&&trow.classList.contains('row')){ toggle(trow,true); trow.scrollIntoView() }
 load(); setInterval(load, 15000);
 </script>
 </body></html>
