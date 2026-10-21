@@ -83,7 +83,7 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
   <button class="chip" data-f="ring" data-v="1" aria-pressed="false">R1 primary</button>
   <button class="chip" data-f="ring" data-v="2" aria-pressed="false">R2 broad</button>
   <button class="chip" data-f="ring" data-v="3" aria-pressed="false">R3 secondary</button>
-  <input type="password" id="key" placeholder="Passphrase to edit" aria-label="Passphrase to edit" autocomplete="off"><input type="search" id="q" placeholder="Search" aria-label="Search">
+  <input type="search" id="q" placeholder="Search" aria-label="Search">
   <button class="btn" id="expandAll" type="button">Expand all</button>
   <button class="btn" id="copyTsv" type="button">Copy TSV</button>
 </div>
@@ -396,8 +396,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>n?n.toLocaleString('en-US'):'0';
 let filters={market:'',ring:'',q:''};
-let decisions={}, asks={}, planKey='';
-try{ planKey=localStorage.getItem('cp.key')||'' }catch(e){}
+let decisions={}, asks={};
 
 function countUnit(c,u){ return c.pieces.filter(p=>p.u===u&&!p.ask).length }
 function askCount(c){ return c.pieces.filter(p=>p.ask).length + (asks[c.id]||[]).length }
@@ -452,10 +451,10 @@ function renderAsks(){
 }
 function banner(msg){ const b=$('#banner'); if(!msg){ b.hidden=true; return } b.textContent=msg; b.hidden=false }
 
-// ---- store: Supabase REST. Reads are open; writes carry the passphrase as a header and are checked server-side.
-function hdr(write){ const h={'apikey':SB_KEY,'Content-Type':'application/json'}; if(write){ h['x-plan-key']=planKey; h['Prefer']='return=representation' } return h }
+// ---- store: Supabase REST. Reads and writes are open to anyone with the link.
+function hdr(write){ const h={'apikey':SB_KEY,'Content-Type':'application/json'}; if(write){ h['Prefer']='return=representation' } return h }
 async function sb(path,opt){ const r=await fetch(SB_URL+'/rest/v1/'+path,opt); if(!r.ok){ const t=await r.text(); const e=new Error(t.slice(0,200)); e.status=r.status; throw e } return r.status===204?null:r.json() }
-function writeErr(e){ if(e.status===401||e.status===403||/row-level security|42501/.test(e.message)) banner('Not saved: enter the passphrase in the box at the top.'); else banner('Not saved: '+e.message) }
+function writeErr(e){ banner('Not saved: '+e.message) }
 let loading=false;
 async function load(){ if(loading) return; loading=true;
   try{ const [d,a]=await Promise.all([sb('decisions?select=*',{headers:hdr()}), sb('asks?select=*&order=created_at',{headers:hdr()})]);
@@ -488,14 +487,11 @@ document.addEventListener('keydown',e=>{ const name=e.target.closest('td.name');
 document.addEventListener('input',e=>{ const el=e.target; if(el.dataset.k&&el.dataset.id) saveDecision(el.dataset.id,el.dataset.k,el.value) });
 document.addEventListener('submit',e=>{ const f=e.target.closest('.addask'); if(!f) return; e.preventDefault(); const inp=f.querySelector('input'); const v=inp.value.trim(); if(!v) return; addAsk(f.dataset.id,f.dataset.unit,v); inp.value='' });
 $('#q').addEventListener('input',e=>{ filters.q=e.target.value; applyFilters() });
-$('#key').value=planKey;
-$('#key').addEventListener('input',e=>{ planKey=e.target.value.trim(); try{ localStorage.setItem('cp.key',planKey) }catch(x){} if(planKey) banner('') });
 $('#expandAll').addEventListener('click',()=>{ const rows=[...document.querySelectorAll('tr.row:not([hidden])')]; const anyClosed=rows.some(r=>r.querySelector('.name').getAttribute('aria-expanded')!=='true'); rows.forEach(r=>toggle(r,anyClosed)); $('#expandAll').textContent=anyClosed?'Collapse all':'Expand all' });
 $('#copyTsv').addEventListener('click',async()=>{ const t=tsv(); try{ await navigator.clipboard.writeText(t); $('#copyTsv').textContent='Copied' }catch(e){ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); $('#copyTsv').textContent='Select and copy' } setTimeout(()=>$('#copyTsv').textContent='Copy TSV',2500) });
 
 renderList();
 const target=(location.hash||'').slice(1); const trow=target&&document.getElementById(target); if(trow&&trow.classList.contains('row')){ toggle(trow,true); trow.scrollIntoView() }
 load(); setInterval(load, 15000);
-if(!planKey) banner('To edit, enter the passphrase in the box at the top. Reading needs nothing.');
 </script>
 </body></html>
