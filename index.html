@@ -44,6 +44,8 @@ td.c{text-align:center;font-variant-numeric:tabular-nums}
 .pill.none{background:var(--surface-2);color:var(--muted)}
 .pill.weak{background:var(--weakbg);color:var(--ask)}
 .pill.cited{background:var(--okbg);color:var(--ok)}
+.pill.unknown{background:var(--surface-2);color:var(--muted);font-style:italic}
+.tag.india{color:#5B3FA3;border-color:#5B3FA3}
 td.f{padding:3px 4px}
 td.f select,td.f input{width:100%;min-width:96px}
 td.f.set select,td.f.set input{border-color:var(--accent)}
@@ -83,6 +85,7 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
   <button class="chip" data-f="market" data-v="" aria-pressed="true">All</button>
   <button class="chip" data-f="market" data-v="US" aria-pressed="false">US</button>
   <button class="chip" data-f="market" data-v="GCC" aria-pressed="false">GCC</button>
+  <button class="chip" data-f="market" data-v="India" aria-pressed="false">India</button>
   <button class="chip" data-f="ring" data-v="" aria-pressed="true">All rings</button>
   <button class="chip" data-f="ring" data-v="1" aria-pressed="false">R1 primary</button>
   <button class="chip" data-f="ring" data-v="2" aria-pressed="false">R2 broad</button>
@@ -255,20 +258,28 @@ const CLUSTERS=[
  {u:'in',t:'Product',n:'Time clock app in Spanish for construction crews',s:'Gap',x:'US-061'},
  {u:'in',t:'Article',n:'Mobile clock-in on crew phones: battery use, device changes, workers without smartphones',s:'Gap',x:'US-057, US-060'}
 ]},
-{id:'us-08',market:'US',ring:3,name:'Secondary industries',hub:'cleaning and janitorial · field service and HVAC · security guards · landscaping · manufacturing, retail, logistics',hubType:'Industry product pages (rebuilds)',searches:1500,truein:'weak',peec:'None today; demand prompts US-128 to US-131 (control set) to add',prompts:'3 bank (US-128 to 130) · 0 Peec',tier:'Standard',prio:'P3',why:'Depth follows demand, not one page per industry. Ahrefs US, 21 Oct: field service scheduling software 1,500; cleaning cluster about 3,500 (mostly scheduling); security workforce management 90; healthcare time and attendance 80; retail time clock software 30; manufacturing time clock 20; warehouse, restaurant, hospitality and home health 0 to 20. So cleaning and field service get four pieces each, security and landscaping two; manufacturing, retail, logistics and healthcare have no US search demand worth a page yet and stay GCC questions until the November prompt map shows AI demand.',pieces:[
- {u:'in',t:'Product',n:'Time tracking software for cleaning and janitorial companies (rebuild)',s:'Week 3',x:'weak /time-attendance-software-for-janitorial-cleaning-services (0 search visits in 90 days)'},
+{id:'us-08',market:'US',ring:3,name:'Secondary industries',hub:'field service · healthcare and home care · retail · manufacturing and warehouse · hospitality · security · cleaning · landscaping · staffing',hubType:'Industry pages: scheduling plus time tracking, one hub per industry',searches:12000,truein:'weak',peec:'None today; demand prompts US-128 to US-131 (control set) to add',prompts:'3 bank (US-128 to 130) · 0 Peec',tier:'Standard',prio:'P2',why:'Re-gauged on 21 Oct with scheduling-led terms (Ahrefs US), which is how these buyers search: field service management software 3,100 and HVAC dispatch 1,000; healthcare and nurse scheduling 1,250 plus home-care EVV 750; retail scheduling 1,300; manufacturing scheduling 900 plus warehouse 200; restaurant and hospitality scheduling 1,200; security guard management, scheduling and guard tour 900; cleaning company software 650 (cluster about 3,500 with scheduling terms); landscaping 700; staffing software 600. About 12,000 a month in total, and employee scheduling software alone is another 11,000. The time-clock phrasing I checked first (20 to 80 a month) was the wrong lens. Depth per industry follows its own volume; every hub here is a scheduling-plus-time-tracking page, so Truein’s scheduling depth decides how far this goes.',pieces:[
+ {u:'in',ask:true,n:'Confirm what Truein’s scheduling can promise (crew schedules, shift swaps, multi-site) before any industry hub is briefed; the demand here is scheduling-led.'},
+ {u:'in',ask:true,n:'Employee scheduling software (11,000 a month): decide whether it becomes its own cluster or stays out of scope.'},
  {u:'in',t:'Product',n:'Field service time tracking: clock in at every customer site',s:'Week 3',x:'none'},
  {u:'in',t:'Article',n:'HVAC time tracking and scheduling: clock-ins at every service call (700)',s:'Week 4',x:'none'},
- {u:'in',t:'Product',n:'Security guard time clock app: post-to-post clock-ins with GPS and face',s:'Week 3',x:'weak /blogs/employee-hours-tracker-for-security-guards'},
- {u:'in',t:'Product',n:'Time tracking for landscaping crews',s:'Week 4',x:'weak /landscaping-time-tracking'},
- {u:'in',t:'Article',n:'Multi-location scheduling software: scheduling crews across sites',s:'Week 3',x:'weak /blogs/employee-scheduling-software-for-multiple-locations'},
- {u:'in',t:'Listicle',n:'Best field service scheduling software with time tracking (1,500)',s:'Gap',x:'Ahrefs 21 Oct; adjacent, the one secondary term with real volume'},
+ {u:'in',t:'Listicle',n:'Best field service management software with time tracking (3,100) and HVAC dispatch software (1,000)',s:'Gap',x:'Ahrefs 21 Oct'},
+ {u:'in',t:'Product',n:'Time tracking software for cleaning and janitorial companies (rebuild)',s:'Week 3',x:'weak /time-attendance-software-for-janitorial-cleaning-services (0 search visits in 90 days)'},
+ {u:'in',t:'Listicle',n:'Best cleaning company software: scheduling and time tracking (400 + 150 + 100; cluster about 3,500)',s:'Gap',x:'blog on cleaning scheduling exists; rebuild as a list'},
  {u:'in',t:'Article',n:'Cleaning staff time clock at client sites: GPS plus face at every building',s:'Gap',x:'US-128'},
- {u:'in',t:'Listicle',n:'Best scheduling and time tracking software for cleaning companies (320 + cluster)',s:'Gap',x:'blog exists; rebuild as a list'},
- {u:'in',t:'Refresh',n:'Security workforce management software post, linked to the new guard time clock page',s:'Gap',x:'blog exists; 90 searches'},
- {u:'in',ask:true,n:'Manufacturing, retail, logistics, healthcare: US search demand is 0 to 80 a month (Ahrefs 21 Oct). Build only if the GCC prompts or the November citation map show AI demand; decide with Ankit.'},
+ {u:'in',t:'Product',n:'Security guard time clock app: post-to-post clock-ins with GPS and face',s:'Week 3',x:'weak /blogs/employee-hours-tracker-for-security-guards'},
+ {u:'in',t:'Listicle',n:'Best security guard management and scheduling software (450 + 150), guard tour system (300)',s:'Gap',x:'security workforce management post exists (90)'},
+ {u:'in',t:'Product',n:'Healthcare and home care: nurse and caregiver scheduling with verified clock-ins (800 + 450 + 300)',s:'Gap',x:'none'},
+ {u:'in',t:'Article',n:'Electronic visit verification (EVV) and home-care time tracking: what the rules require (350 + 400)',s:'Gap',x:'none; compliance tone'},
+ {u:'in',t:'Listicle',n:'Best retail scheduling software with time and attendance (800 + 500 + 200)',s:'Gap',x:'none'},
+ {u:'in',t:'Listicle',n:'Best manufacturing and warehouse scheduling software with attendance (900 + 200 + 100)',s:'Gap',x:'none'},
+ {u:'in',t:'Listicle',n:'Best restaurant and hospitality scheduling software with a time clock (600 + 400 + 200 + 200 + 150)',s:'Gap',x:'none'},
+ {u:'in',t:'Product',n:'Time tracking for landscaping crews',s:'Week 4',x:'weak /landscaping-time-tracking'},
+ {u:'in',t:'Listicle',n:'Best landscaping business and scheduling software (450 + 250)',s:'Gap',x:'landscaping listicle post exists'},
+ {u:'in',t:'Listicle',n:'Best staffing agency software with time and attendance (600)',s:'Gap',x:'none; the US cousin of the GCC manpower cluster'},
+ {u:'in',t:'Article',n:'Multi-location scheduling software: scheduling crews across sites',s:'Week 3',x:'weak /blogs/employee-scheduling-software-for-multiple-locations'},
  {u:'off',ask:true,n:'Unknown: the panel has no industry prompts outside construction. Which lists get cited comes out of step 3 above.'},
- {u:'proof',ask:true,n:'One named customer per industry page: cleaning, security, field service.'}
+ {u:'proof',ask:true,n:'One named customer per industry hub: cleaning, security, field service, healthcare, retail, hospitality, manufacturing.'}
 ]},
 {id:'gcc-01',market:'GCC',ring:1,name:'Face recognition attendance (UAE)',hub:'face recognition attendance system dubai · face scanning attendance middle east',hubType:'Refresh of the cited product page (hub) plus a UAE list',searches:300,truein:'cited',vis:{pct:45,n:7,note:'Face/Biometric 45.4%; the buyer question face recognition attendance system dubai is 12.4%'},peec:'Face/Biometric (7 prompts: 92% on contract workers face, 15% and 4th of 6 on “face recognition attendance system dubai”)',tier:'Light',prio:'P2',why:'Truein’s strongest GCC topic on niche prompts but 4th of 6 on the real buyer question; a Truein-owned UAE list is the gap (Waggex’s is cited 109 times).',pieces:[
  {u:'in',t:'Refresh',n:'Face recognition attendance system in Dubai and the Middle East (hub; cited 172 times)',s:'Week 1',x:'cited /gcc/face-scanning-attendance-system'},
@@ -367,6 +378,33 @@ const CLUSTERS=[
  {u:'off',t:'Agency',n:'opsmatters placement on the Jibble alternative topic (planned); judge by the 30-day cited rule',s:'Planned',x:'0 today'},
  {u:'off',t:'Out-build',n:'jibble.io lists (construction time tracking 67, attendance app for construction workers 71, facial recognition 206) are competitor-owned',s:'Out-build',x:'competitor lists'},
  {u:'proof',ask:true,n:'Customer who moved from Jibble (free face recognition) to Truein, and why.'}
+]},
+{id:'in-01',market:'India',ring:2,name:'Attendance app and attendance management (India, generic)',hub:'attendance app · employee attendance app · attendance management system · attendance tracker · online attendance system',hubType:'Product page (hub) plus a list and comparisons; page types to confirm',searches:12900,truein:'unknown',peec:'No generic prompts in the India project (it runs the 23 GCC prompts from India)',prompts:'0 bank · 0 Peec',tier:'Standard',prio:'P2',why:'The largest Indian demand (attendance app 4,300; attendance management system 2,600; attendance tracker 2,600; employee attendance app 900; attendance management software 800; attendance software 600; online attendance system 450; staff attendance app 350; mobile attendance app 300) and none of it is tracked or planned. Truein’s India pages were not audited for this; state unknown.',pieces:[
+ {u:'in',ask:true,n:'Audit Truein’s existing India pages for these terms (rank, clicks, cited or not) before deciding the hub.'},
+ {u:'in',ask:true,n:'Hub: attendance app for Indian companies, in the page type step 3 shows is cited.'},
+ {u:'off',ask:true,n:'Unknown until the India citation map is run (the citation-map skill has only run on US and GCC).'},
+ {u:'proof',ask:true,n:'Named Indian customer with numbers, outside construction (retail chain, facilities, logistics).'}
+]},
+{id:'in-02',market:'India',ring:1,name:'Face and biometric attendance (India)',hub:'face recognition attendance system · biometric attendance machine · biometric attendance system · attendance machine · face attendance app',hubType:'Product page (hub): software versus machine; a machine-vs-app comparison',searches:8900,truein:'unknown',peec:'Face/Biometric (7 prompts, 49%); ZKTeco 34%, Jibble 28%, eSSL 24%, Hikvision 19%: hardware brands share the answers',prompts:'0 bank · 7 Peec',tier:'Standard',prio:'P1',why:'Truein leads the tracked face prompts at 49% but the Google demand is machine-led (biometric attendance machine 1,500; attendance machine 2,200; biometric attendance system 1,200; face recognition attendance system 3,700) and the answers name hardware vendors. The machine-versus-app argument is the page to own.',pieces:[
+ {u:'in',ask:true,n:'Audit Truein’s India face recognition and biometric pages (rank, clicks, cited) before briefing.'},
+ {u:'in',ask:true,n:'Hub: face recognition attendance system for Indian companies, software versus biometric machine.'},
+ {u:'off',ask:true,n:'Unknown until the India citation map is run; the panel’s face prompts do have citation data to read.'},
+ {u:'proof',ask:true,n:'Indian customer who replaced biometric machines with the app: sites, headcount, what changed.'}
+]},
+{id:'in-03',market:'India',ring:1,name:'Construction, contract labour and manpower (India)',hub:'labour attendance app · contract labour management software · manpower attendance · construction site attendance',hubType:'Product pages (hub) plus a case study; Google demand is small, the demand is in AI answers',searches:430,truein:'unknown',peec:'Construction (5 prompts, 46%; Jibble 50%) and Contractor/Manpower (5 prompts, 45%; Jibble 35%, Salarybox 24%, QuickBooks 24%)',prompts:'0 bank · 10 Peec',tier:'Light',prio:'P2',why:'Tracked and strong (45 to 46%) but Jibble leads construction; Google volumes are small (labour attendance app 250; contract labour management software 70; manpower attendance 40). Defend with proof and the existing pages; do not build volume here.',pieces:[
+ {u:'in',ask:true,n:'Audit the India construction and contract labour pages before deciding anything.'},
+ {u:'off',ask:true,n:'Unknown until the India citation map is run on these 10 prompts.'},
+ {u:'proof',ask:true,n:'Indian contractor or manpower supplier with headcount and site numbers.'}
+]},
+{id:'in-04',market:'India',ring:2,name:'Field staff, GPS and multi-site attendance (India)',hub:'gps attendance app · geo attendance app · field force management software · multi-location attendance',hubType:'Product page (hub)',searches:510,truein:'unknown',peec:'GPS / Multi-site (5 prompts, 10%; Jibble 36%, Salarybox 26%, Keka 14%)',prompts:'0 bank · 5 Peec',tier:'Light',prio:'P2',why:'The weakest tracked India topic at 10% with Jibble and Salarybox ahead; field force management software (350) is the buyer term, GPS attendance app only 100.',pieces:[
+ {u:'in',ask:true,n:'Hub: field staff attendance with GPS and face for India, framed around field force management.'},
+ {u:'off',ask:true,n:'Unknown until the India citation map is run.'},
+ {u:'proof',ask:true,n:'Indian field-sales or facilities customer with multi-city teams.'}
+]},
+{id:'in-05',market:'India',ring:2,name:'HR, payroll and leave suites (India)',hub:'hrms software · leave management system · payroll software india · hr software india',hubType:'Comparison (hub): attendance inside the suites and where a verified layer fits',searches:6800,truein:'unknown',peec:'None tracked; Keka and Pocket HRMS appear as competitors on other topics',prompts:'0 bank · 0 Peec',tier:'Light',prio:'P3',why:'Big adjacent demand (hrms software 2,800; leave management system 2,500; payroll software india 900; hr software india 600) owned by suites. Same play as the GCC HR cluster: a comparison, not a product page.',pieces:[
+ {u:'in',ask:true,n:'Decide whether India HR-suite comparisons are worth it before the GCC version proves the format.'},
+ {u:'off',ask:true,n:'Unknown; no prompts tracked.'},
+ {u:'proof',ask:true,n:'Indian customer running Truein beside Keka or another suite.'}
 ]}
 ];
 
@@ -407,9 +445,9 @@ function renderList(){
 }
 function unitHtml(c,u){
   const rows=c.pieces.filter(p=>p.u===u);
-  const body=rows.map(p=> p.ask ? `<tr class="ask"><td class="t">To decide</td><td colspan="3">${esc(p.n)}</td></tr>` : `<tr${p.s==='Gap'?' class="gap"':''}><td class="t">${esc(p.t||'')}</td><td>${esc(p.n)}</td><td class="s">${esc(p.s||'')}</td><td class="s">${esc(p.x||'')}</td></tr>`).join('');
+  const body=rows.map(p=> p.ask ? `<tr class="ask"><td class="t">To decide</td><td colspan="${u==='in'?2:3}">${esc(p.n)}</td></tr>` : u==='in' ? `<tr${p.s==='Gap'?' class="gap"':''}><td class="t">${p.s==='Gap'?'Gap · ':''}${esc(p.t||'')}</td><td>${esc(p.n)}</td><td class="s">${esc(p.x||'')}</td></tr>` : `<tr><td class="t">${esc(p.t||'')}</td><td>${esc(p.n)}</td><td class="s">${esc(p.s||'')}</td><td class="s">${esc(p.x||'')}</td></tr>`).join('');
   const wide=(u==='in'||u==='off')?' wide':'';
-  const cols = u==='in' ? ['Type','Piece','Week or status','Truein today'] : u==='off' ? ['Type','Page','Status','Citations'] : u==='reddit' ? ['Type','Thread','Status','Citations'] : ['Type','Item','Status','Note'];
+  const cols = u==='in' ? ['Type','Piece','Truein today'] : u==='off' ? ['Type','Page','Status','Citations'] : u==='reddit' ? ['Type','Thread','Status','Citations'] : ['Type','Item','Status','Note'];
   return `<div class="unit${wide}"><h2>${esc(UNITS[u])}</h2><table><thead><tr>${cols.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${body}</tbody><tbody data-asks="${c.id}:${u}"></tbody></table>
   <form class="addask" data-id="${c.id}" data-unit="${u}"><input type="text" placeholder="Add something to decide, with its objective" aria-label="Objective" required id="ask-${c.id}-${u}"><button class="btn" type="submit">Add</button></form></div>`;
 }
@@ -429,7 +467,7 @@ function renderDecisions(){
 }
 function renderAsks(){
   for(const tb of document.querySelectorAll('[data-asks]')){ const [id,u]=tb.dataset.asks.split(':'); const rows=(asks[id]||[]).filter(a=>a.unit===u);
-    tb.innerHTML=rows.map(a=>`<tr class="ask"><td class="t">To decide</td><td colspan="2">${esc(a.objective)}</td><td class="s"><button class="rm" type="button" data-rm="${esc(a.id)}">remove</button></td></tr>`).join('') }
+    tb.innerHTML=rows.map(a=>`<tr class="ask"><td class="t">To decide</td><td colspan="${u==='in'?1:2}">${esc(a.objective)}</td><td class="s"><button class="rm" type="button" data-rm="${esc(a.id)}">remove</button></td></tr>`).join('') }
   for(const row of document.querySelectorAll('tr.row')){ const c=CLUSTERS.find(x=>x.id===row.dataset.id); row.querySelector('[data-askcount]').textContent=askCount(c) }
 }
 function banner(msg){ const b=$('#banner'); if(!msg){ b.hidden=true; return } b.textContent=msg; b.hidden=false }
