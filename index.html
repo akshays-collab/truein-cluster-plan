@@ -49,6 +49,10 @@ td.f select,td.f input{width:100%;min-width:96px}
 td.f.set select,td.f.set input{border-color:var(--accent)}
 tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);background:var(--surface-2);white-space:normal}
 .meta{font-size:12px;color:var(--muted);margin:0 0 8px;max-width:140ch}
+.pre{background:var(--ask-bg);color:var(--ask);border-radius:6px;padding:8px 12px;margin:0 0 10px;font-size:12.5px;max-width:140ch}
+.pre b{display:block;margin-bottom:4px}
+.pre ol{margin:0;padding-left:18px}
+.pre li{margin:2px 0}
 .meta b{color:var(--fg);font-weight:600}
 .units{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .unit{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-width:0}
@@ -104,8 +108,6 @@ const RINGS={1:'Ring 1 · primary industry',2:'Ring 2 · broad buyer term',3:'Ri
 // u: unit; t: type; n: title; s: status or week; x: Truein today, URL or citations; ask: a ? row with its objective in n
 const CLUSTERS=[
 {id:'us-01',market:'US',ring:2,name:'Employee time clock apps',hub:'employee time clock app · clock in and out app · time clock app for small business',hubType:'Listicle (hub) with product and kiosk pages',searches:18250,truein:'none',peec:'No Peec topic today; add demand prompts US-123 to US-126 (employee time clock app, clock in and out app, small business)',prompts:'12 bank (kiosk US-047 to 054, control US-123 to 126) · 0 Peec',tier:'Deep',prio:'P1',why:'Largest demand in the plan (10,000 + 5,500 + 3,400 a month), nothing exists, and AI answers cite vendor lists for it; EasyClocking’s product page is the most-cited US page (945).',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Listicle',n:'Best employee time clock apps (2027): verified clock-ins for hourly and multi-site teams (hub)',s:'Week 1',x:'none'},
  {u:'in',t:'Listicle',n:'Best clock in and out apps for hourly employees',s:'Week 1',x:'none'},
  {u:'in',t:'Article',n:'Time clock systems for multi-site companies: cloud, kiosk, mobile and hardware compared',s:'Week 1',x:'none'},
@@ -116,8 +118,8 @@ const CLUSTERS=[
  {u:'in',t:'Article',n:'iPad time clock: setting up a shared tablet clock for a jobsite',s:'Week 2',x:'none'},
  {u:'in',t:'Article',n:'Punch time clock vs app: what a 50-person crew should use in 2027',s:'Week 3',x:'none'},
  {u:'in',t:'Listicle',n:'Best time clock apps (2027): the 10 we’d shortlist for hourly teams',s:'Week 3',x:'none'},
- {u:'off',ask:true,n:'Capterra and GetApp: not in the cited top 60 on the panel, and the panel does not cover this cluster. Check whether their category pages are cited on the demand prompts before spending anything on the profile.'},
- {u:'off',ask:true,n:'No third-party “best time clock app” list is in the top 60 cited pages (vendor lists dominate). Re-run the citation map on the demand prompts in November, then pick two lists to pitch.'},
+ {u:'off',ask:true,n:'Capterra and GetApp: unknown for this cluster until step 3; spend nothing on the profile before that.'},
+ {u:'off',ask:true,n:'Unknown: the panel has no employee time clock prompts, so there is no citation data for this cluster yet. Which lists get cited comes out of step 3 above.'},
  {u:'reddit',t:'Watch',n:'r/smallbusiness weekly watch (time clock, timesheet, clock in, buddy punching, attendance app): 0 matches on 19 Oct',s:'Watch',x:'not cited yet'},
  {u:'reddit',ask:true,n:'Answer only when a thread matches the small-business time clock page; one named person, disclosure first.'},
  {u:'misc',ask:true,n:'G2 and Capterra: record the current state first (review count, rating, categories listed, which competitors\u2019 alternatives pages list Truein) against ClockShark, Jibble, Workyard and busybusy. Both sites block automated reads (checked 21 Oct), so a person looks. No review target until then.'},
@@ -128,7 +130,6 @@ const CLUSTERS=[
  {u:'in',t:'Article',n:'Free time clock apps: what you give up and when to pay (1,100)',s:'Gap',x:'theme volume; not on the sheet'}
 ]},
 {id:'us-02',market:'US',ring:2,name:'Timesheets, time cards and calculators',hub:'timesheet app · time card app · timesheet calculator',hubType:'Listicle (hub) plus two calculators',searches:41650,truein:'none',peec:'No Peec topic today; add demand prompts US-101 to US-108 (timesheet and time card prompts)',prompts:'8 bank (US-101 to 108) · 0 Peec',tier:'Deep',prio:'P1',why:'The timesheet calculator alone is 32,000 searches a month and the biggest single item on the site; Reddit threads are the cited source for the timesheet question; nothing exists.',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
  {u:'in',t:'Listicle',n:'Best timesheet apps for field and construction teams (hub)',s:'Week 1',x:'none'},
  {u:'in',t:'Listicle',n:'Best time card apps for construction crews',s:'Week 1',x:'none'},
  {u:'in',t:'Article',n:'Construction timesheet app: what foremen actually need',s:'Week 1',x:'none'},
@@ -140,7 +141,7 @@ const CLUSTERS=[
  {u:'in',t:'Article',n:'Online timesheet software: 7 questions before you pick one (3,000)',s:'Week 4',x:'none'},
  {u:'in',t:'Article',n:'Timesheet management system: approvals, exceptions and payroll handoff',s:'Week 4',x:'none'},
  {u:'in',t:'Refresh',n:'Construction time card apps post: link into the new time card list',s:'Week 4',x:'cited /blogs/time-card-apps-for-construction'},
- {u:'off',ask:true,n:'No cited third-party timesheet list in the top 60; the engines cite Reddit for this question. Out-build with the hub; pitch lists after the November citation map.'},
+ {u:'off',ask:true,n:'Unknown: the panel has no timesheet prompts, so there is no citation data for this cluster yet. Which lists get cited comes out of step 3 above.'},
  {u:'reddit',t:'Thread',n:'r/Construction: Which is the best timesheet app in the construction industry?',s:'Open, draft answer ready for approval',x:'cited 140 times'},
  {u:'reddit',t:'Candidate',n:'r/TimeTrackingSoftware: Top 10 Timesheet and Project Time-Tracking Software Tools in 2026 (14 replies, 14 Oct)',s:'Candidate from the 19 Oct watch',x:'answer not written'},
  {u:'reddit',t:'Watch',n:'r/TimeTrackingSoftware weekly watch (construction, crew, jobsite, buddy punching, timesheet, time clock)',s:'Watch',x:'cited subreddit'},
@@ -249,14 +250,12 @@ const CLUSTERS=[
  {u:'in',t:'Article',n:'Remote employee time tracking: verification without surveillance',s:'Week 1',x:'none'},
  {u:'in',t:'Article',n:'Time tracking software for remote employees that doesn’t spy',s:'Week 3',x:'none'},
  {u:'off',t:'Skip',n:'worktime.com best time tracking software for remote employees (monitoring vendor; conflicts with the no-surveillance stance)',s:'Skip',x:'70 citations'},
- {u:'off',ask:true,n:'No cited list fits Truein’s position; out-build with the product page and revisit after the November map.'},
+ {u:'off',ask:true,n:'Unknown: the panel has one remote-work prompt, so there is almost no citation data for this cluster. Which lists get cited comes out of step 3 above.'},
  {u:'proof',ask:true,n:'Field-team customer outside construction on phones with offline sites.'},
  {u:'in',t:'Product',n:'Time clock app in Spanish for construction crews',s:'Gap',x:'US-061'},
  {u:'in',t:'Article',n:'Mobile clock-in on crew phones: battery use, device changes, workers without smartphones',s:'Gap',x:'US-057, US-060'}
 ]},
 {id:'us-08',market:'US',ring:3,name:'Secondary industries',hub:'cleaning and janitorial · field service and HVAC · security guards · landscaping · manufacturing, retail, logistics',hubType:'Industry product pages (rebuilds)',searches:1500,truein:'weak',peec:'None today; demand prompts US-128 to US-131 (control set) to add',prompts:'3 bank (US-128 to 130) · 0 Peec',tier:'Standard',prio:'P3',why:'Depth follows demand, not one page per industry. Ahrefs US, 21 Oct: field service scheduling software 1,500; cleaning cluster about 3,500 (mostly scheduling); security workforce management 90; healthcare time and attendance 80; retail time clock software 30; manufacturing time clock 20; warehouse, restaurant, hospitality and home health 0 to 20. So cleaning and field service get four pieces each, security and landscaping two; manufacturing, retail, logistics and healthcare have no US search demand worth a page yet and stay GCC questions until the November prompt map shows AI demand.',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Product',n:'Time tracking software for cleaning and janitorial companies (rebuild)',s:'Week 3',x:'weak /time-attendance-software-for-janitorial-cleaning-services (0 search visits in 90 days)'},
  {u:'in',t:'Product',n:'Field service time tracking: clock in at every customer site',s:'Week 3',x:'none'},
  {u:'in',t:'Article',n:'HVAC time tracking and scheduling: clock-ins at every service call (700)',s:'Week 4',x:'none'},
@@ -268,11 +267,10 @@ const CLUSTERS=[
  {u:'in',t:'Listicle',n:'Best scheduling and time tracking software for cleaning companies (320 + cluster)',s:'Gap',x:'blog exists; rebuild as a list'},
  {u:'in',t:'Refresh',n:'Security workforce management software post, linked to the new guard time clock page',s:'Gap',x:'blog exists; 90 searches'},
  {u:'in',ask:true,n:'Manufacturing, retail, logistics, healthcare: US search demand is 0 to 80 a month (Ahrefs 21 Oct). Build only if the GCC prompts or the November citation map show AI demand; decide with Ankit.'},
- {u:'off',ask:true,n:'Industry lists (cleaning, field service, security) are not in the cited top 60; check the November map before pitching.'},
+ {u:'off',ask:true,n:'Unknown: the panel has no industry prompts outside construction. Which lists get cited comes out of step 3 above.'},
  {u:'proof',ask:true,n:'One named customer per industry page: cleaning, security, field service.'}
 ]},
 {id:'gcc-01',market:'GCC',ring:1,name:'Face recognition attendance (UAE)',hub:'face recognition attendance system dubai · face scanning attendance middle east',hubType:'Refresh of the cited product page (hub) plus a UAE list',searches:300,truein:'cited',peec:'Face/Biometric (7 prompts: 92% on contract workers face, 15% and 4th of 6 on “face recognition attendance system dubai”)',tier:'Light',prio:'P2',why:'Truein’s strongest GCC topic on niche prompts but 4th of 6 on the real buyer question; a Truein-owned UAE list is the gap (Waggex’s is cited 109 times).',pieces:[
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Refresh',n:'Face recognition attendance system in Dubai and the Middle East (hub; cited 172 times)',s:'Week 1',x:'cited /gcc/face-scanning-attendance-system'},
  {u:'in',t:'Listicle',n:'Best face recognition attendance systems in the UAE (2027)',s:'Week 3',x:'none'},
  {u:'in',t:'Article',n:'Face detection vs face recognition attendance: what UAE buyers get wrong',s:'Week 4',x:'none'},
@@ -283,7 +281,6 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'UAE customer with face verification on a labour camp or site: headcount, disputes, WPS records.'}
 ]},
 {id:'gcc-02',market:'GCC',ring:1,name:'Contract labour and manpower',hub:'contract labour attendance · manpower supply attendance · staffing agency attendance',hubType:'Refresh of the most-cited GCC page (hub) plus a manpower rebuild and a case study',searches:60,truein:'cited',peec:'Contractor/Manpower (5 prompts: 92%, 69%, 64%, 56%, 37%)',tier:'Light',prio:'P2',why:'Defend the strongest position and convert it: the demand is in AI answers, not Google, and the cited page type Truein lacks here is the named customer with numbers.',pieces:[
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Refresh',n:'Contract labour attendance system (hub; cited 601 times; corrupted paragraph F058 to fix)',s:'Week 1',x:'cited /contract-workers-attendance'},
  {u:'in',t:'Product',n:'Manpower and staffing agency attendance in the UAE (rebuild; audit F141 to F144)',s:'Week 4',x:'weak /manpower-staffing-industry-attendance-software'},
  {u:'in',ask:true,n:'Case-study page: a manpower supply company with headcount and WPS numbers, in the format TrueBays’ McLaren page is cited for (57).'},
@@ -293,7 +290,6 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'Manpower supply customer with numbers: this is where Truein is already cited, so proof turns citations into demos.'}
 ]},
 {id:'gcc-03',market:'GCC',ring:1,name:'Construction attendance (UAE)',hub:'construction attendance software uae · offline attendance app for construction sites',hubType:'Refreshes of two cited pages',searches:50,truein:'cited',peec:'Construction (5 prompts, 22 to 69%)',tier:'Light',prio:'P3',why:'Already cited and producing demos; refresh and hold. The agency placement here is one of the two that AI cites.',pieces:[
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Refresh',n:'7 best construction attendance software in the UAE (hub; cited 156 times, produced a demo)',s:'Week 4',x:'cited /gcc-blogs/best-construction-attendance-software-uae'},
  {u:'in',t:'Refresh',n:'GCC construction attendance system page (cited 57 times)',s:'Week 4',x:'cited /gcc/construction-attendance-system'},
  {u:'off',t:'Editorial',n:'constructionreviewonline.com 7 best offline attendance apps for construction sites (agency placement)',s:'Live',x:'63 citations, Truein present'},
@@ -301,8 +297,6 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'UAE contractor: sites, crews, offline days, what changed.'}
 ]},
 {id:'gcc-04',market:'GCC',ring:2,name:'Time attendance system (UAE, generic)',hub:'time attendance system dubai · attendance management system · attendance machine vs app · attendance app · attendance sheet',hubType:'Product page rebuild (hub) with the cited Dubai list, comparisons and articles',searches:2370,truein:'weak',peec:'No prompts today; add time attendance system Dubai and UAE, attendance management system UAE, best attendance software Dubai, attendance machine Dubai',tier:'Standard',prio:'P1',why:'The biggest GCC demand. Truein’s page gets 4 clicks a quarter, and the engines cite product pages here (73% of GCC citations), so the hub is the whole game; 25+ installer pages are the competition.',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Product',n:'Time attendance system for UAE companies: face, GPS and payroll-ready (rebuild) (hub)',s:'Week 1',x:'weak /gcc/time-attendance-system (4 clicks a quarter)'},
  {u:'in',t:'Refresh',n:'8 best time and attendance software in Dubai and the UAE (cited 135 times, produced a demo)',s:'Week 1',x:'cited /gcc-blogs/best-employee-time-attendance-software-dubai-uae'},
  {u:'in',t:'Comparison',n:'Biometric attendance machine vs attendance app in the UAE: cost, accuracy, WPS',s:'Week 1',x:'none; ChatGPT lists installers first'},
@@ -321,8 +315,6 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'UAE SME outside construction (retail, facilities, hospitality) with WPS-ready records.'}
 ]},
 {id:'gcc-05',market:'GCC',ring:2,name:'HR and payroll suites (UAE)',hub:'hr software uae · payroll software uae · hrms uae · best hr software dubai',hubType:'Comparison (hub) plus a list and an article',searches:450,truein:'none',peec:'No prompts today; add best HR software Dubai with attendance, HRMS with attendance UAE',tier:'Light',prio:'P2',why:'A high-demand UAE question where Truein is absent. Adjacent, so a comparison with the suites rather than a product page; Zoho’s UAE comparison is the only cited GCC comparison.',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Comparison',n:'Attendance inside HR and payroll software in the UAE: what the suites include and where a verified attendance layer fits (hub)',s:'Week 1',x:'none'},
  {u:'in',t:'Listicle',n:'Best HR and payroll software in the UAE with attendance built in (2027)',s:'Week 2',x:'none'},
  {u:'in',t:'Article',n:'HRMS in the UAE: what the attendance module usually can’t do on multi-site, contract workforces',s:'Week 3',x:'weak /blogs/hrms-attendance-system (US framing)'},
@@ -331,7 +323,6 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'Customer running Truein beside an HR suite (Zoho People, Bayzat): why the attendance layer was added.'}
 ]},
 {id:'gcc-06',market:'GCC',ring:2,name:'GPS and geofencing attendance (GCC)',hub:'gps attendance system · geofencing attendance · multi-location attendance · field staff attendance',hubType:'Product page (hub)',searches:60,truein:'weak',peec:'GPS / Multi-site (5 prompts, 0 to 12%: Truein’s weakest GCC topic)',tier:'Light',prio:'P2',why:'The weakest GCC topic with five tracked prompts; one page fixes most of it. Synktime’s GPS page is cited 204 times.',pieces:[
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Product',n:'GPS and geofencing attendance system for UAE and Saudi sites (hub)',s:'Week 3',x:'weak /geofencing-attendance-system'},
  {u:'in',ask:true,n:'Multi-location attendance management page (Peec prompt at 8%).'},
  {u:'in',ask:true,n:'Location-based attendance for field staff article (prompt pr_98a12e95).'},
@@ -339,8 +330,6 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'Field-staff customer in the UAE (sales, facilities) using geofence check-ins.'}
 ]},
 {id:'gcc-07',market:'GCC',ring:2,name:'Saudi Arabia (English)',hub:'time attendance system saudi arabia · attendance software saudi · riyadh',hubType:'Product page (hub) plus the refreshed Saudi list',searches:130,truein:'cited',peec:'No Saudi prompts today (panel is UAE-only); add time attendance system Saudi Arabia and best attendance software Saudi, location SA',tier:'Light',prio:'P3',why:'Truein ranks 9 with a listicle and gets 0 clicks; the product page is missing; 96 impressions for the term come from the UAE alone. Low until the Saudi prompts are tracked.',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Product',n:'Time attendance system for Saudi Arabia: Riyadh, Jeddah, Dammam sites (hub)',s:'Week 2',x:'none'},
  {u:'in',t:'Refresh',n:'Attendance management suppliers in Saudi Arabia compared (position 9, 0 clicks; produced a demo)',s:'Week 2',x:'cited /gcc-blogs/best-time-attendance-softwares-saudi-arabia'},
  {u:'off',ask:true,n:'No Saudi lists in the cited set because the panel is UAE-only; add the Saudi prompts first, then map.'},
@@ -348,8 +337,6 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'A Saudi customer.'}
 ]},
 {id:'gcc-08',market:'GCC',ring:2,name:'Arabic (Saudi)',hub:'حضور وانصراف · نظام حضور وانصراف · جهاز بصمة · نظام الموارد البشرية',hubType:'Arabic product page (hub), HR integration page, comparison, list, article',searches:1270,truein:'none',peec:'No Arabic prompts today; add the five Arabic prompts listed on the plan rows',tier:'Standard',prio:'P2',why:'All Saudi Arabic demand (about 1,330 a month) is uncovered and AI Overviews already answer it. Blocked on a native reviewer.',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Product',n:'حضور وانصراف: نظام حضور وانصراف بالوجه وتحديد الموقع للشركات في السعودية (hub; 500)',s:'Week 2',x:'none'},
  {u:'in',t:'Product',n:'نظام الموارد البشرية والحضور: كيف يتكامل نظام الحضور مع برامج الموارد البشرية (500)',s:'Week 2',x:'none'},
  {u:'in',t:'Comparison',n:'جهاز بصمة حضور وانصراف أم تطبيق: المقارنة والتكلفة (150)',s:'Week 2',x:'none'},
@@ -361,16 +348,12 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'Saudi customer quote in Arabic.'}
 ]},
 {id:'gcc-09',market:'GCC',ring:3,name:'Qatar, Kuwait and Oman',hub:'time attendance system qatar · kuwait · oman (traffic today comes from employment-law pages)',hubType:'Refresh of the law pages with a product path, plus one product page',searches:0,truein:'cited',peec:'No prompts today; add time attendance system Qatar',tier:'Light',prio:'P3',why:'1,383 clicks in 90 days land on the law pages and produce zero demos; one product page captures what is there. Volumes not pulled yet.',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Refresh',n:'Qatar, Kuwait, Oman employment-law pages with a product path and the attendance-records angle',s:'Week 3',x:'cited /gcc-blogs/qatar-employment-laws (262 clicks), Oman Arabic page (235), Kuwait (52)'},
  {u:'in',t:'Product',n:'Time attendance system for Qatar, Kuwait and Oman sites (hub)',s:'Week 4',x:'none'},
  {u:'in',ask:true,n:'Pull Qatar, Kuwait and Oman search volumes (not done).'},
  {u:'proof',ask:true,n:'A Qatar or Oman customer.'}
 ]},
 {id:'gcc-10',market:'GCC',ring:3,name:'WPS and compliance (UAE)',hub:'uae new wps rules · wps employer obligations · wps registration',hubType:'Articles feeding the generic UAE hub (Google-only play)',searches:4200,truein:'weak',peec:'None (informational; not an AI prompt set)',tier:'Light',prio:'P3',why:'The highest-volume GCC informational terms; they feed the time attendance hub and the Gulf News story. Compliance tone required (SOP G9).',pieces:[
- {u:'in',ask:true,n:'Page-type check: the page types here come from the panel\u2019s citation pattern and the Google SERP, not from citations on this cluster\u2019s own prompts. Confirm with a 5-run check of the hub question in ChatGPT and AI Overviews (or Peec once the prompts are added) before committing the spokes. The hub is built regardless.'},
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Article',n:'New WPS rules in the UAE (2026 update): deadlines, penalties, what to change (2,400)',s:'Week 3',x:'none'},
  {u:'in',t:'Article',n:'UAE WPS rules for employers: what attendance records have to show (1,600)',s:'Week 3',x:'weak /gcc-blogs/wage-protection-scheme-uae (3 clicks, 6,233 impressions)'},
  {u:'in',t:'Article',n:'WPS registration in the UAE: steps, documents and the attendance records you need',s:'Week 4',x:'none'},
@@ -379,7 +362,6 @@ const CLUSTERS=[
  {u:'proof',ask:true,n:'Customer whose attendance records passed a MOHRE or WPS check.'}
 ]},
 {id:'gcc-11',market:'GCC',ring:2,name:'Alternatives (Jibble, GCC)',hub:'jibble alternative for contract workforce attendance',hubType:'Alternatives page (hub)',searches:0,truein:'weak',peec:'Alternatives (1 prompt: 33% visibility, 3% win)',tier:'Light',prio:'P2',why:'Jibble is the top GCC competitor (39 to 40% visibility, cited on three lists); one tracked prompt and a 2024 page to rebuild.',pieces:[
- {u:'in',ask:true,n:'Depth check: list the first-turn questions and follow-ups for this cluster (the 130-prompt bank is construction-only), then set the number of pieces the way it was done for construction.'},
  {u:'in',t:'Alternative',n:'Best Jibble alternatives for contract and blue-collar workforces in the GCC (hub)',s:'Week 3',x:'weak /comparison/jibble-alternative (2024)'},
  {u:'in',ask:true,n:'Truein vs Jibble in GCC framing (the US version is in week 4).'},
  {u:'off',t:'Agency',n:'opsmatters placement on the Jibble alternative topic (planned); judge by the 30-day cited rule',s:'Planned',x:'0 today'},
@@ -415,7 +397,7 @@ function renderList(){
       <td class="c">${countUnit(c,'in')-gapCount(c)} + ${gapCount(c)}</td><td class="c">${os.target} · ${os.live}</td><td class="c">${countUnit(c,'reddit')}</td><td class="c">${countUnit(c,'misc')}</td><td class="c" data-askcount>${askCount(c)}</td>
       <td class="f">${sel('owner',c.id,OWNERS)}</td><td class="f">${sel('priority',c.id,PRIORITIES)}</td><td class="f"><input type="text" data-k="eta" data-id="${c.id}" id="eta-${c.id}" placeholder="16 Nov"></td><td class="f">${sel('status',c.id,STATUSES)}</td>`;
     const det=document.createElement('tr'); det.className='detail'; det.hidden=true; det.dataset.id=c.id;
-    det.innerHTML=`<td colspan="13">
+    det.innerHTML=`<td colspan="13">${promptCounts(c)[1]<2?`<div class="pre"><b>Before deciding this cluster</b><ol><li>Prompt bank: list the first-turn questions and follow-ups (US: extend the 130-prompt bank; GCC: no bank exists yet).</li><li>Put them in Peec as a tagged set in Truein\u2019s own workspace and let it run two to four weeks.</li><li>Read the citation map on those prompts: which page types, lists, videos and threads get cited.</li><li>Only then set depth, the spokes\u2019 page types and the off-site targets. Until then the hub is the only committed piece; everything else below is a draft from search volume.</li></ol></div>`:''}
       <p class="meta"><b>Hub:</b> ${esc(c.hub)} · <b>Page type:</b> ${esc(c.hubType)} · <b>Prompts:</b> ${esc(c.prompts||'none in the bank')} · <b>Peec:</b> ${esc(c.peec)}<br><b>Suggested ${esc(c.tier)}, ${esc(c.prio)}:</b> ${esc(c.why)}</p>
       <div class="units">${['in','off','reddit','misc','proof'].map(u=>unitHtml(c,u)).join('')}</div>
       <div class="note"><label for="note-${c.id}" style="font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)">Note</label><textarea data-k="note" data-id="${c.id}" id="note-${c.id}" rows="1"></textarea></div></td>`;
