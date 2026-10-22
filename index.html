@@ -94,7 +94,7 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 <body>
 
 
-<div class="tabs"><button class="tab" data-tab="clusters" aria-pressed="true">Clusters</button><button class="tab" data-tab="proof" aria-pressed="false">Proof and testimonials</button><button class="tab" data-tab="tech" aria-pressed="false">Tracking and technical</button><button class="tab" data-tab="agency" aria-pressed="false">Agency scope (Nov to Feb)</button></div>
+<div class="tabs"><button class="tab" data-tab="clusters" aria-pressed="true">Clusters</button><button class="tab" data-tab="channels" aria-pressed="false">Channels</button><button class="tab" data-tab="proof" aria-pressed="false">Proof and testimonials</button><button class="tab" data-tab="tech" aria-pressed="false">Tracking and technical</button><button class="tab" data-tab="agency" aria-pressed="false">Agency scope (Nov to Feb)</button></div>
 <section data-panel="clusters">
 <div class="top">
   <h1>Truein cluster plan</h1>
@@ -119,7 +119,9 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 </table>
 </div>
 </section>
-<section data-panel="proof" hidden>
+<section data-panel="channels" hidden>
+<div class="wrap"><table class="main"><thead><tr><th>Channel</th><th>When</th><th>Owner</th><th>How we go about it</th><th>What we measure</th><th>Target by end Feb</th><th>Status</th><th>Notes</th></tr></thead><tbody id="chplan"></tbody></table></div>
+</section><section data-panel="proof" hidden>
 <div class="wrap" style="padding:14px 16px;margin-bottom:10px">
 <h2 style="font-size:15px;margin:0 0 8px">Testimonials and proof: the plan</h2>
 <ol style="margin:0;padding-left:18px;max-width:110ch;line-height:1.5">
@@ -573,8 +575,8 @@ function applyFilters(){
   }
 }
 function renderDecisions(){
-  for(const c of [...CLUSTERS,...TECH,...AGENCY,...CHANNELS,...ASKS,...TAKE]){ const d=decisions[c.id]||{};
-    for(const k of ['owner','priority','eta','status','note']){ const el=document.getElementById(k+'-'+c.id); if(!el) continue; let v=d[k]||''; if(k==='note'&&c.note0&&!(c.id in decisions)) v=c.note0; if(k==='priority'){ v=({'P1 now':'P1','P2 next':'P2','P3 later':'P3','Park':'P3'})[v]||v } if(document.activeElement!==el&&el.value!==v) el.value=v; if(el.parentElement.classList.contains('f')) el.parentElement.classList.toggle('set',!!v)
+  for(const c of [...CLUSTERS,...TECH,...AGENCY,...CHANNELS,...ASKS,...TAKE,...CHANNEL_PLAN]){ const d=decisions[c.id]||{};
+    for(const k of ['owner','priority','eta','status','note']){ const el=document.getElementById(k+'-'+c.id); if(!el) continue; let v=d[k]||''; if(!(c.id in decisions)&&c[k+'0']) v=c[k+'0']; if(k==='priority'){ v=({'P1 now':'P1','P2 next':'P2','P3 later':'P3','Park':'P3'})[v]||v } if(document.activeElement!==el&&el.value!==v) el.value=v; if(el.parentElement.classList.contains('f')) el.parentElement.classList.toggle('set',!!v)
       if(k==='priority'){ const cell=el.parentElement, row=cell.parentElement; for(const p of ['p0','p1','p2','p3']){ cell.classList.remove(p); row.classList.remove(p) } const pc=/^P[0-3]$/.test(v)?v.toLowerCase():''; if(pc){ cell.classList.add(pc); row.classList.add(pc) } } }
   }
   applyFilters();
@@ -599,7 +601,7 @@ async function load(){ if(loading) return; loading=true;
   }catch(e){ banner('Could not load saved decisions: '+e.message) } finally{ loading=false } }
 const timers={};
 function saveDecision(id,k,v){
-  const cur=Object.assign({id:id,owner:'',priority:'',eta:'',status:'',note:''},decisions[id]||{}); cur[k]=v; cur.updated_at=new Date().toISOString(); decisions[id]=cur; renderDecisions();
+  const base=[...CLUSTERS,...TECH,...AGENCY,...CHANNELS,...ASKS,...TAKE,...CHANNEL_PLAN].find(x=>x.id===id)||{}; const cur=Object.assign({id:id,owner:base.owner0||'',priority:'',eta:'',status:'',note:base.note0||''},decisions[id]||{}); cur[k]=v; cur.updated_at=new Date().toISOString(); decisions[id]=cur; renderDecisions();
   clearTimeout(timers[id]); timers[id]=setTimeout(async()=>{ delete timers[id]; try{ await sb('decisions',{method:'POST',headers:Object.assign(hdr(true),{'Prefer':'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify([cur])}); banner('') }catch(e){ writeErr(e) } }, k==='note'?600:150);
 }
 async function addAsk(id,u,objective){
@@ -731,16 +733,54 @@ function renderAgency(){
   fill('#takelist',TAKE,r=>`<td class="name" style="cursor:default"><b>${esc(r.n)}</b><small>Not in scope</small></td><td style="white-space:normal;min-width:380px;color:var(--muted)">${esc(r.t)}</td>`+noteCell(r.id,3,320));
 }
 
+// ---- Channels: Truein's plan per channel, from the 22 Oct whiteboard. Base Nov to Dec, reach from January. Owner, Status and Notes save to the store.
+const CHANNEL_PLAN=[
+ {id:'chn-a',n:`Listicles (off-site cited lists)`,ph:'Base',when:`From Nov, every month`,owner0:'Agency (DerivateX)',
+  how:`Only lists AI already cites for each cluster, from the Peec citation map. Get Truein added or refreshed on each; queued placements re-pointed to cited sites or dropped. Construction alone has 7 cited lists where Truein is absent.`,
+  measure:`Lists live with Truein; cited by AI within 30 days.`,tgt:`3 → 24 lists (agency clusters)`},
+ {id:'chn-b',n:`On-site content`,ph:'Base',when:`Nov, Dec, Jan; Feb for the last clusters`,owner0:'',
+  how:`Agency: its seven clusters (four deeper from Nov, two new from Dec, secondary industries from Jan). In-house: the other clusters on the Clusters tab. Each page answers one first-turn question in the format AI cites for it.`,
+  measure:`Pages live by type; Truein pages cited; visibility per cluster; Search Console clicks and positions.`,tgt:`29 → 113 pages on agency clusters; in-house per the Clusters tab`},
+ {id:'chn-c',n:`Other off-site content`,ph:'Base',when:`From Dec`,owner0:'Agency (DerivateX)',
+  how:`Guest articles, comparisons and how-tos on third-party sites in the same clusters; kept only where AI retrieves or cites them.`,
+  measure:`Pieces live; retrieved or cited within 30 days.`,tgt:`Count set in the agency's 29 Oct plan`},
+ {id:'chn-d',n:`PR`,ph:'Reach',when:`From Jan`,owner0:'',
+  how:`Stories on Truein's own data where the product has it (for example buddy punching or GPS spoofing attempts caught across clock-ins), numbers signed off by Ankit. Founder commentary in US construction and HR press and GCC business and construction press. Named-customer announcements once consent is in. Every hit is linked from its cluster page, turned into a LinkedIn Pulse post and added to the listicle pitch pack. No citation data on press sites yet, so January runs as a test.`,
+  measure:`Coverage live; coverage cited by AI within 30 days; branded search impressions; visibility on the story's cluster.`,tgt:`Set by mid-Dec`,note0:`Agency's view asked by 29 Oct (Agency scope tab).`},
+ {id:'chn-e',n:`YouTube`,ph:'Reach',when:`From Jan`,owner0:'',
+  how:`List videos per cluster: in construction the cited videos are vendor list videos (Jibble, Buddy Punch, Contractor Plus). One-question product walkthroughs (face verification, geofence set-up). Customer testimonial videos retitled as buyer questions. Each video embedded on its matching truein.com page with the transcript; Shorts cut for LinkedIn.`,
+  measure:`Videos live; videos cited by AI; views; cited pages that carry a video.`,tgt:`Set by mid-Dec`,note0:`Agency's view asked by 29 Oct (Agency scope tab).`},
+ {id:'chn-f',n:`Reddit`,ph:'Base',when:`From Nov, weekly`,owner0:'Agency (DerivateX)',
+  how:`Disclosed answers from one named person in threads AI already cites (construction has two, cited 320 and 67 times) and in new threads the weekly watch finds. One reply per thread, employer in the first line, no new accounts, no company upvotes. Truein approves every reply.`,
+  measure:`Replies live; threads cited; replies removed (should be 0).`,tgt:`5 planned replies plus matches from the weekly watch; 0 removed`},
+ {id:'chn-g',n:`LinkedIn Pulse`,ph:'Base',when:`From Nov, two a month`,owner0:'Agency (DerivateX)',
+  how:`Agency drafts, Ankit or Shreyas posts. Each post reuses a page or story already built: a cluster finding, a customer number, a data point. LinkedIn is under 1% of AI citations, so this is for reach and reuse, not visibility.`,
+  measure:`Posts live; reach; any post retrieved by AI.`,tgt:`8 posts`},
+ {id:'chn-h',n:`Medium and similar`,ph:'Reach',when:`Jan, as a test`,owner0:'',
+  how:`Adapted versions of cluster articles, not copies, linking back to the page. Check in December whether Medium pages show up in our citations before doing more than a test.`,
+  measure:`Posts live; retrieved or cited by AI within 30 days.`,tgt:`Set by mid-Dec`,note0:`Agency's view asked by 29 Oct (Agency scope tab).`},
+ {id:'chn-i',n:`Podcasts`,ph:'Reach',when:`Feb`,owner0:'',
+  how:`Guest spots for Ankit on US construction, field-service and HR operations shows and GCC business shows. A transcript page per episode; each appearance cut into a LinkedIn post and quoted on the matching cluster page.`,
+  measure:`Appearances live; transcripts retrieved by AI; branded search impressions.`,tgt:`Set by mid-Dec`,note0:`Agency's view asked by 29 Oct (Agency scope tab).`}
+];
+function renderChannelPlan(){
+  const tb=document.querySelector('#chplan'); if(!tb) return; tb.innerHTML='';
+  for(const r of CHANNEL_PLAN){
+    const tr=document.createElement('tr'); tr.className='row'; tr.id=r.id;
+    tr.innerHTML=`<td class="name" style="cursor:default"><b>${esc(r.n)}</b><small>${r.ph==='Base'?'Base, Nov to Dec':'Reach, from Jan'}</small></td><td style="min-width:120px;white-space:normal">${esc(r.when)}</td><td class="f">${sel('owner',r.id,OWNERS)}</td><td style="white-space:normal;min-width:340px">${esc(r.how)}</td><td style="white-space:normal;min-width:220px;color:var(--muted)">${esc(r.measure)}</td><td style="min-width:160px;white-space:normal"><b>${esc(r.tgt)}</b></td><td class="f">${sel('status',r.id,STATUSES)}</td><td class="f" style="min-width:240px;white-space:normal"><textarea data-k="note" data-id="${r.id}" id="note-${r.id}" rows="3" style="width:100%;resize:vertical" placeholder="Note"></textarea></td>`;
+    tb.appendChild(tr);
+  }
+}
 function showTab(name){
   for(const p of document.querySelectorAll('[data-panel]')) p.hidden=p.dataset.panel!==name;
   for(const b of document.querySelectorAll('.tab')) b.setAttribute('aria-pressed', b.dataset.tab===name);
-  if(name==='tech') renderTech(), renderDecisions(); if(name==='agency') renderAgency(), renderDecisions(); if(name==='proof') renderProof();
+  if(name==='tech') renderTech(), renderDecisions(); if(name==='agency') renderAgency(), renderDecisions(); if(name==='channels') renderChannelPlan(), renderDecisions(); if(name==='proof') renderProof();
 }
 document.addEventListener('click',e=>{ const b=e.target.closest('.tab'); if(b){ showTab(b.dataset.tab); history.replaceState(null,'','#'+b.dataset.tab); return }
   const o=e.target.closest('[data-open]'); if(o){ e.preventDefault(); showTab('clusters'); const row=document.getElementById(o.dataset.open); if(row){ toggle(row,true); row.scrollIntoView() } } });
 
 renderList();
-const target=(location.hash||'').slice(1); if(target==='proof'||target==='tech'||target==='agency') showTab(target); const trow=target&&document.getElementById(target); if(trow&&trow.classList.contains('row')){ toggle(trow,true); trow.scrollIntoView() }
+const target=(location.hash||'').slice(1); if(target==='proof'||target==='tech'||target==='agency'||target==='channels') showTab(target); const trow=target&&document.getElementById(target); if(trow&&trow.classList.contains('row')){ toggle(trow,true); trow.scrollIntoView() }
 load(); setInterval(load, 15000);
 </script>
 </body></html>
