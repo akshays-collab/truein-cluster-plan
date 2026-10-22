@@ -136,6 +136,8 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 <section data-panel="agency" hidden>
 <div class="wrap"><table class="main"><thead><tr><th>Cluster</th><th>Prompts tracked<br>(now → Feb)</th><th>Named in AI answers<br>(now)</th><th>Target<br>end Dec</th><th>Target<br>end Feb</th><th>Pages on truein.com<br>(live → Feb)</th><th>On cited lists<br>(now → Feb)</th><th>Notes: new prompts, pages, lists</th></tr></thead><tbody id="aglist"></tbody>
 <tfoot><tr><td class="name"><b>Total</b></td><td class="c">30 → 153 US, 0 → 5 GCC</td><td></td><td></td><td></td><td class="c">29 → 113</td><td class="c">3 → 24</td><td style="white-space:normal;color:var(--muted)">Peec, 30 days to 20 Oct, on each cluster's full prompt set. Targets are proposals to agree with DerivateX. Notes save for everyone.</td></tr></tfoot></table></div>
+<h2 style="font-size:15px;margin:22px 0 8px">When and how: base Nov to Dec, PR and YouTube from January</h2>
+<div class="wrap"><table class="main"><thead><tr><th>Activity</th><th>When</th><th>Owner</th><th>How we go about it</th><th>What we measure</th><th>Notes</th></tr></thead><tbody id="chlist"></tbody></table></div>
 </section><section data-panel="tech" hidden>
 <div class="wrap"><table class="main"><thead><tr><th>Item</th><th>Why</th><th>What</th><th>Owner</th><th>ETA</th><th>Status</th><th>Note</th></tr></thead><tbody id="techlist"></tbody></table></div>
 </section>
@@ -564,7 +566,7 @@ function applyFilters(){
   }
 }
 function renderDecisions(){
-  for(const c of [...CLUSTERS,...TECH,...AGENCY]){ const d=decisions[c.id]||{};
+  for(const c of [...CLUSTERS,...TECH,...AGENCY,...CHANNELS]){ const d=decisions[c.id]||{};
     for(const k of ['owner','priority','eta','status','note']){ const el=document.getElementById(k+'-'+c.id); if(!el) continue; let v=d[k]||''; if(k==='note'&&c.note0&&!(c.id in decisions)) v=c.note0; if(k==='priority'){ v=({'P1 now':'P1','P2 next':'P2','P3 later':'P3','Park':'P3'})[v]||v } if(document.activeElement!==el&&el.value!==v) el.value=v; if(el.parentElement.classList.contains('f')) el.parentElement.classList.toggle('set',!!v)
       if(k==='priority'){ const cell=el.parentElement, row=cell.parentElement; for(const p of ['p0','p1','p2','p3']){ cell.classList.remove(p); row.classList.remove(p) } const pc=/^P[0-3]$/.test(v)?v.toLowerCase():''; if(pc){ cell.classList.add(pc); row.classList.add(pc) } } }
   }
@@ -699,6 +701,58 @@ New prompts: 3 per industry across 9 (field service, healthcare and home care, r
 New pages by February (8, by volume): field service management with time tracking list (3,100 + 1,000), cleaning company software list and janitorial rebuild, retail scheduling list, restaurant and hospitality scheduling list, healthcare and home-care product page, security guard management list, manufacturing and warehouse list. The other 11 go to the next contract.
 Lists: from the January citation read.`}
 ];
+
+// ---- When and how: one row per activity, base first (Nov to Dec), reach from January; Notes save like any note
+const CHANNELS=[
+ {id:'ch-a',n:`Listicles (off-site cited lists)`,ph:'Base',when:'From Nov, every month',own:'Agency',
+  how:`Only lists AI already cites for each cluster, from the Peec citation map. Get Truein added or refreshed on each; the agency's queued placements are re-pointed to cited sites or dropped.`,
+  measure:`Lists live with Truein; cited by AI within 30 days. 3 today, 24 by Feb.`,
+  note0:`Cluster-level list of target lists is in the Notes of the cluster table above.`},
+ {id:'ch-b',n:`On-site content`,ph:'Base',when:'Nov, Dec, Jan; Feb for the last clusters',own:'Agency',
+  how:`Four deeper clusters first (Nov), employee time clock apps and Arabic from Dec, secondary industries from Jan. Each page answers one first-turn question in the format AI cites for it (list, alternatives, comparison, product page).`,
+  measure:`Pages live by type; Truein pages cited; visibility per cluster on its full prompt set. 29 live today, 113 by Feb.`,
+  note0:``},
+ {id:'ch-c',n:`Other off-site content`,ph:'Base',when:'From Dec',own:'Agency',
+  how:`Guest articles, comparisons and how-tos on third-party sites in the same clusters. Same 30-day rule as listicles: kept only where AI retrieves or cites them.`,
+  measure:`Pieces live; retrieved or cited within 30 days.`,
+  note0:``},
+ {id:'ch-f',n:`Reddit`,ph:'Base',when:'From Nov, weekly',own:'Agency drafts, Truein approves',
+  how:`Disclosed answers from one named person in threads AI already cites (construction has two, cited 320 and 67 times) and in new threads the weekly watch finds. One reply per thread, employer in the first line, no new accounts, no company upvotes.`,
+  measure:`Replies live; threads cited by AI; replies removed (should be 0).`,
+  note0:``},
+ {id:'ch-g',n:`LinkedIn Pulse`,ph:'Base',when:'From Nov, two a month',own:'Agency drafts, posted by Ankit or Shreyas',
+  how:`Each Pulse post reuses a page or story already built: a cluster finding, a customer number, a data point. LinkedIn is under 1% of AI citations today, so this is for reach and for reuse, not for visibility.`,
+  measure:`Posts live; reach; any Pulse post retrieved by AI.`,
+  note0:``},
+ {id:'ch-d',n:`PR`,ph:'Reach',when:'From Jan (plan due 15 Dec)',own:'Agency',
+  how:`Stories built on Truein's own data where the product has it (for example buddy punching or GPS spoofing attempts caught across clock-ins), numbers signed off by Ankit, founder commentary in trade and business press (US construction and HR; GCC business and construction), and named-customer announcements once consent is in. No citation data on press sites yet, so January is measured as a test.`,
+  measure:`Coverage live; coverage retrieved or cited by AI within 30 days; branded search impressions (Search Console); visibility movement on the cluster the story belongs to.`,
+  note0:``},
+ {id:'ch-e',n:`YouTube`,ph:'Reach',when:'From Jan (plan due 15 Dec)',own:'Agency',
+  how:`List videos per cluster, the format AI cites in construction today; product walkthroughs that answer one buyer question each (face verification, geofence set-up); customer videos retitled as buyer questions. Each video is embedded on its matching truein.com page with the transcript.`,
+  measure:`Videos live; videos cited by AI; views; cited pages that now carry a video.`,
+  note0:``},
+ {id:'ch-h',n:`Medium and similar platforms`,ph:'Reach',when:'Jan, as a test',own:'Agency',
+  how:`Adapted versions of cluster articles, not copies, linking back to the page. Check in December whether Medium pages show up in AI citations for our clusters before spending on it.`,
+  measure:`Posts live; retrieved or cited by AI within 30 days.`,
+  note0:``},
+ {id:'ch-i',n:`Podcasts`,ph:'Reach',when:'Feb',own:'Agency books, Ankit speaks',
+  how:`Guest spots on construction, field-service and HR operations podcasts in the US and business podcasts in the GCC. Episodes with a transcript page; each appearance cut into a LinkedIn post and quoted on the matching cluster page.`,
+  measure:`Appearances live; transcript pages retrieved by AI; branded search impressions.`,
+  note0:``},
+ {id:'ch-ask',n:`Agency task: how to get the most from PR, YouTube, Medium and podcasts`,ph:'Ask',when:'Due 15 Dec',own:'Agency',
+  how:`A plan for Jan to Feb covering: which outlets, channels and shows, and why; three to five story angles from Truein's data; the video list per cluster; how each piece is reused on the site, in listicle pitches, on Reddit and on LinkedIn; cost per item; and what they will measure and when they will call it a success or stop.`,
+  measure:`Plan received by 15 Dec; agreed by 22 Dec; first items live in Jan.`,
+  note0:``}
+];
+function renderChannels(){
+  const tb=document.querySelector('#chlist'); if(!tb) return; tb.innerHTML='';
+  for(const r of CHANNELS){
+    const tr=document.createElement('tr'); tr.className='row'; tr.id=r.id;
+    tr.innerHTML=`<td class="name" style="cursor:default"><b>${esc(r.n)}</b><small>${esc(r.ph==='Ask'?'Agency task':r.ph==='Base'?'Base, Nov to Dec':'Reach, from Jan')}</small></td><td style="min-width:130px;white-space:normal">${esc(r.when)}</td><td style="min-width:120px;white-space:normal">${esc(r.own)}</td><td style="white-space:normal;min-width:340px">${esc(r.how)}</td><td style="white-space:normal;min-width:220px;color:var(--muted)">${esc(r.measure)}</td><td class="f" style="min-width:260px;white-space:normal"><textarea data-k="note" data-id="${r.id}" id="note-${r.id}" rows="4" style="width:100%;resize:vertical" placeholder="Note"></textarea></td>`;
+    tb.appendChild(tr);
+  }
+}
 function renderAgency(){
   const tb=document.querySelector('#aglist'); if(!tb) return; tb.innerHTML='';
   for(const a of AGENCY){
@@ -710,7 +764,7 @@ function renderAgency(){
 function showTab(name){
   for(const p of document.querySelectorAll('[data-panel]')) p.hidden=p.dataset.panel!==name;
   for(const b of document.querySelectorAll('.tab')) b.setAttribute('aria-pressed', b.dataset.tab===name);
-  if(name==='tech') renderTech(), renderDecisions(); if(name==='agency') renderAgency(), renderDecisions(); if(name==='proof') renderProof();
+  if(name==='tech') renderTech(), renderDecisions(); if(name==='agency') renderAgency(), renderChannels(), renderDecisions(); if(name==='proof') renderProof();
 }
 document.addEventListener('click',e=>{ const b=e.target.closest('.tab'); if(b){ showTab(b.dataset.tab); history.replaceState(null,'','#'+b.dataset.tab); return }
   const o=e.target.closest('[data-open]'); if(o){ e.preventDefault(); showTab('clusters'); const row=document.getElementById(o.dataset.open); if(row){ toggle(row,true); row.scrollIntoView() } } });
