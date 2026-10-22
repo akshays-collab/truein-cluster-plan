@@ -9,14 +9,15 @@
 :root{
   --bg:#F2F4F6; --surface:#FFFFFF; --surface-2:#EDF0F3; --fg:#172028; --muted:#5A6A78; --line:#D3DBE3;
   --accent:#0E6B86; --accent-ink:#FFFFFF; --ask:#8A5A00; --ask-bg:#FFF4D6; --ok:#2E7D4F; --okbg:#E3F2E8; --weakbg:#FFF4D6;
+  --p0:#B3261E; --p1:#B4541F; --p2:#0E6B86; --p3:#5A6A78;
   --body:'IBM Plex Sans', Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#0F161C; --surface:#18222B; --surface-2:#1F2B35; --fg:#E7EDF2; --muted:#9BAAB7; --line:#2C3944;
-  --accent:#5EB8D3; --accent-ink:#0F161C; --ask:#F2C56B; --ask-bg:#3A2E12; --ok:#6FC08E; --okbg:#1E3A2A; --weakbg:#3A2E12; color-scheme:dark } }
+  --accent:#5EB8D3; --accent-ink:#0F161C; --ask:#F2C56B; --ask-bg:#3A2E12; --ok:#6FC08E; --okbg:#1E3A2A; --weakbg:#3A2E12; --p0:#F28B82; --p1:#E59A6A; --p2:#5EB8D3; --p3:#9BAAB7; color-scheme:dark } }
 :root[data-theme="dark"]{
   --bg:#0F161C; --surface:#18222B; --surface-2:#1F2B35; --fg:#E7EDF2; --muted:#9BAAB7; --line:#2C3944;
-  --accent:#5EB8D3; --accent-ink:#0F161C; --ask:#F2C56B; --ask-bg:#3A2E12; --ok:#6FC08E; --okbg:#1E3A2A; --weakbg:#3A2E12; color-scheme:dark }
+  --accent:#5EB8D3; --accent-ink:#0F161C; --ask:#F2C56B; --ask-bg:#3A2E12; --ok:#6FC08E; --okbg:#1E3A2A; --weakbg:#3A2E12; --p0:#F28B82; --p1:#E59A6A; --p2:#5EB8D3; --p3:#9BAAB7; color-scheme:dark }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:13px;line-height:1.4;padding-block:16px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .tabs{display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--line)}
@@ -53,6 +54,11 @@ td.c{text-align:center;font-variant-numeric:tabular-nums}
 td.f{padding:3px 4px}
 td.f select,td.f input{width:100%;min-width:96px}
 td.f.set select,td.f.set input{border-color:var(--accent)}
+td.f.p0 select{background:color-mix(in srgb,var(--p0) 18%,var(--surface));border-color:var(--p0);color:var(--p0);font-weight:600}
+td.f.p1 select{background:color-mix(in srgb,var(--p1) 18%,var(--surface));border-color:var(--p1);color:var(--p1);font-weight:600}
+td.f.p2 select{background:color-mix(in srgb,var(--p2) 18%,var(--surface));border-color:var(--p2);color:var(--p2);font-weight:600}
+td.f.p3 select{background:color-mix(in srgb,var(--p3) 18%,var(--surface));border-color:var(--p3);color:var(--p3);font-weight:600}
+tr.row.p0>td.name{box-shadow:inset 4px 0 0 var(--p0)} tr.row.p1>td.name{box-shadow:inset 4px 0 0 var(--p1)} tr.row.p2>td.name{box-shadow:inset 4px 0 0 var(--p2)} tr.row.p3>td.name{box-shadow:inset 4px 0 0 var(--p3)}
 tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);background:var(--surface-2);white-space:normal}
 .meta{font-size:12px;color:var(--muted);margin:0 0 8px;max-width:140ch}
 .pre{background:var(--ask-bg);color:var(--ask);border-radius:6px;padding:8px 12px;margin:0 0 10px;font-size:12.5px;max-width:140ch}
@@ -96,6 +102,7 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
   <button class="chip" data-f="ring" data-v="1" aria-pressed="false">R1 primary</button>
   <button class="chip" data-f="ring" data-v="2" aria-pressed="false">R2 broad</button>
   <button class="chip" data-f="ring" data-v="3" aria-pressed="false">R3 secondary</button>
+  <button class="chip" data-f="priority" data-v="" aria-pressed="true">All priorities</button><button class="chip" data-f="priority" data-v="P0" aria-pressed="false">P0</button><button class="chip" data-f="priority" data-v="P1" aria-pressed="false">P1</button><button class="chip" data-f="priority" data-v="P2" aria-pressed="false">P2</button><button class="chip" data-f="priority" data-v="P3" aria-pressed="false">P3</button><button class="chip" data-f="priority" data-v="none" aria-pressed="false">Not set</button>
   <input type="search" id="q" placeholder="Search" aria-label="Search">
   <button class="btn" id="expandAll" type="button">Expand all</button>
   <button class="btn" id="copyTsv" type="button">Copy TSV</button>
@@ -129,7 +136,7 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 
 <script>
 const OWNERS=['','In-house','Agency (DerivateX)','New hire'];
-const PRIORITIES=['','P1 now','P2 next','P3 later','Park'];
+const PRIORITIES=['','P0','P1','P2','P3'];
 const STATUSES=['','Not started','Briefed','In progress','Live','Parked'];
 const UNITS={in:'In-house pieces',off:'Off-site lists',reddit:'Reddit',misc:'Misc (YouTube, LinkedIn, reviews, GBP)',proof:'Proof asset'};
 const RINGS={1:'Ring 1 · primary industry',2:'Ring 2 · broad buyer term',3:'Ring 3 · secondary'};
@@ -450,7 +457,7 @@ const SB_KEY='sb_publishable_hjP7NiRusR_kbxDQHFEyAA_RM1wtOZT';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>n?n.toLocaleString('en-US'):'0';
-let filters={market:'',ring:'',q:''};
+let filters={market:'',ring:'',priority:'',q:''};
 let decisions={}, asks={};
 
 function countUnit(c,u){ return c.pieces.filter(p=>p.u===u&&!p.ask).length }
@@ -491,14 +498,17 @@ function applyFilters(){
   for(const row of document.querySelectorAll('#list tr.row')){
     const c=CLUSTERS.find(x=>x.id===row.dataset.id);
     let ok=(!filters.market||c.market===filters.market)&&(!filters.ring||String(c.ring)===filters.ring);
+    if(ok&&filters.priority){ const pv=(decisions[c.id]||{}).priority||''; ok = filters.priority==='none' ? !pv : pv===filters.priority }
     if(ok&&q){ ok=(c.name+' '+c.hub+' '+c.pieces.map(p=>p.n).join(' ')).toLowerCase().includes(q) }
     row.hidden=!ok; const det=row.nextElementSibling; if(!ok) det.hidden=true; else det.hidden=row.querySelector('.name').getAttribute('aria-expanded')!=='true';
   }
 }
 function renderDecisions(){
   for(const c of [...CLUSTERS,...TECH]){ const d=decisions[c.id]||{};
-    for(const k of ['owner','priority','eta','status','note']){ const el=document.getElementById(k+'-'+c.id); if(!el) continue; const v=d[k]||''; if(document.activeElement!==el&&el.value!==v) el.value=v; if(el.parentElement.classList.contains('f')) el.parentElement.classList.toggle('set',!!v) }
+    for(const k of ['owner','priority','eta','status','note']){ const el=document.getElementById(k+'-'+c.id); if(!el) continue; const v=d[k]||''; if(document.activeElement!==el&&el.value!==v) el.value=v; if(el.parentElement.classList.contains('f')) el.parentElement.classList.toggle('set',!!v)
+      if(k==='priority'){ const cell=el.parentElement, row=cell.parentElement; for(const p of ['p0','p1','p2','p3']){ cell.classList.remove(p); row.classList.remove(p) } const pc=/^P[0-3]$/.test(v)?v.toLowerCase():''; if(pc){ cell.classList.add(pc); row.classList.add(pc) } } }
   }
+  applyFilters();
 }
 function renderAsks(){
   for(const tb of document.querySelectorAll('[data-asks]')){ const [id,u]=tb.dataset.asks.split(':'); const rows=(asks[id]||[]).filter(a=>a.unit===u);
