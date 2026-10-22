@@ -149,7 +149,7 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 <tr class="row"><td class="name" style="cursor:default"><b>GCC GPS and geofencing</b></td><td class="c">Shared</td><td class="c">1</td><td class="c">1</td><td class="c">1</td></tr>
 <tr class="row"><td class="name" style="cursor:default"><b>GCC alternatives (Jibble)</b></td><td class="c">Shared</td><td class="c">0</td><td class="c">0</td><td class="c">1</td></tr></tbody><tfoot><tr><td class="name"><b>Total</b></td><td class="c">29</td><td class="c">10</td><td class="c">5</td><td class="c">14</td></tr><tr><td></td><td colspan="4" style="white-space:normal;color:var(--muted)">From the agency's master sheet tab, 22 Oct. On-site pages serve both markets. US on cited lists: constructionplacements.com (cited 112 times) and foundonai.com (76). GCC placements, all cited on GCC prompts: constructionreviewonline.com (53), roboticsandautomationnews.com (30), hrfuture.net (1). Also published: hrtechsaas.com (India, cited 14 on GCC prompts) and 2 LinkedIn Pulse posts. The cluster table's US count also includes Fareclock, which listed Truein before.</td></tr></tfoot></table></div><h2 style="font-size:15px;margin:22px 0 8px">Clusters, prompts and targets</h2>
 <div class="wrap"><table class="main"><thead><tr><th>Cluster</th><th>Prompts tracked<br>(now → Feb)</th><th>Named in AI answers<br>(now)</th><th>Target<br>end Dec</th><th>Target<br>end Feb</th><th>Pages on truein.com<br>(published → Feb)</th><th>On cited lists<br>(now → Feb)</th><th>Our proposal: prompts, pages, lists (editable)</th></tr></thead><tbody id="aglist"></tbody>
-<tfoot><tr><td class="name"><b>Total</b></td><td class="c">30 → 153 US, 23 → 41 GCC</td><td></td><td></td><td></td><td class="c">29 → 121</td><td class="c">6 → 32</td><td style="white-space:normal;color:var(--muted)">Peec, 30 days to 20 Oct. Targets are proposals to agree with DerivateX. Notes save for everyone.</td></tr></tfoot></table></div>
+<tfoot><tr><td class="name"><b>Total</b></td><td class="c">30 → 153 US, 23 → 36 GCC</td><td></td><td></td><td></td><td class="c">29 → 116</td><td class="c">6 → 31</td><td style="white-space:normal;color:var(--muted)">Peec, 30 days to 20 Oct. Targets are proposals to agree with DerivateX. Notes save for everyone.</td></tr></tfoot></table></div>
 <h2 style="font-size:15px;margin:22px 0 8px">When and how, by channel</h2>
 <div class="wrap"><table class="main"><thead><tr><th>Activity</th><th>When</th><th>Owner</th><th>How we go about it</th><th>What we measure</th><th>Target by end Feb</th><th>Notes</th></tr></thead><tbody id="chlist"></tbody></table></div>
 <h2 style="font-size:15px;margin:22px 0 8px">What we need from DerivateX, and when</h2>
@@ -678,9 +678,9 @@ function renderProof(){
 
 // ---- Agency scope, Nov 2026 to Feb 2027: mirrors specs/Truein-DerivateX-scope-Nov2026-Feb2027.pdf; Notes save to the store like any note
 const TERMS=[
- {n:`Seven clusters`,d:`The four the agency is on now go deeper: construction time tracking, face verification and buddy punching, and GPS and geofencing in the US and the GCC, and alternatives and comparisons in the US. Employee time clock apps and Arabic (Saudi) start in December, secondary industries in January.`},
+ {n:`Six clusters`,d:`The four the agency is on now go deeper: construction time tracking, face verification and buddy punching, and GPS and geofencing in the US and the GCC, and alternatives and comparisons in the US. Employee time clock apps start in December, secondary industries in January.`},
  {n:`Counts are fixed, picks are open`,d:`The numbers (prompts, pages, lists, posts) are fixed. The specific prompts, pages and lists are our proposal; where the agency would pick different ones, it tells us which and why.`},
- {n:`Measurement in the agency's Peec workspace`,d:`Proposed, to confirm with Ankit. It tracks the full prompt set of each cluster, with the same engines and countries as Truein's workspace. Truein gets full access. Prompts are added or removed only with Truein's OK. Monthly export of the raw data; if the engagement ends, the workspace history comes to Truein. Truein tracks about 15 of the same prompts in its own workspace as a check. Asked: how many prompts their plan can hold (104 US and 36 GCC in Nov, 126 US and 41 GCC in Dec, 153 US and 41 GCC from Jan).`},
+ {n:`Measurement in the agency's Peec workspace`,d:`Proposed, to confirm with Ankit. It tracks the full prompt set of each cluster, with the same engines and countries as Truein's workspace. Truein gets full access. Prompts are added or removed only with Truein's OK. Monthly export of the raw data; if the engagement ends, the workspace history comes to Truein. Truein tracks about 15 of the same prompts in its own workspace as a check. Asked: how many prompts their plan can hold (140 in Nov, 162 in Dec, 189 from Jan).`},
  {n:`Which lists and citations count`,d:`AI already cites the page for the cluster's prompts in the last 30 days, ideally on more than one prompt or engine. It names vendors (list, alternatives or comparison) and Truein is absent or low. The site has real organic traffic, suggested at least 1,000 visits a month unless AI already cites it often, and does not exist to sell placements. Right market. Updated in the last 12 months. Picked up by an engine within 30 days of Truein going on it, or it does not count. Paid links carry the sponsored tag.`}
 ];
 const AGENCY=[
@@ -712,11 +712,6 @@ Lists (2 new): GCC GPS lists that pass section 6; the queued multi-location list
 Prompts (22): kiosk US-047 to 054, demand US-123 to 126, plus 10 new (clock in and out app, free time clock app, iPad time clock, punch clock vs app, small business with GPS, field and office staff, supervisor clock-in, multi-site time clock, time clock kiosk, best time clock apps 2027).
 Pages (13): 5 lists (employee time clock apps hub, clock in and out apps, small business with GPS, best time clock apps 2027, field and office staff), 2 product pages (tablet kiosk, supervisor clock-in), 6 articles.
 Lists (3): from the December citation read, against section 6.`},
- {id:'ag-gcc-08',name:`GCC Arabic (Saudi)`,mk:'GCC',kind:'New',start:'Starts Dec',p:'0 → 5',now:'Not tracked',t2:'Tracked, baseline set',t4:'10%',con:'0 → 5',off:'0 → 1',note0:`Why 10%: Truein is named in 40 to 45% of English GCC answers where it has pages; Arabic starts with no page.
-Before briefing: Truein names a native Arabic reviewer.
-Prompts (5): Arabic prompts in the GCC project.
-Pages (5): product hub, HR integration, fingerprint machine vs app comparison, how to choose an attendance programme, best systems in Saudi Arabia list.
-Lists (1): from the December read.`},
  {id:'ag-us-08',name:`US secondary industries`,mk:'US',kind:'New',start:'Starts Jan',p:'0 → 27',now:'Not tracked',t2:'Not started',t4:'3%',con:'0 → 8 of 19',off:'0 → 2',note0:`Why 3%: one month of pages before the February read.
 Before January: Truein confirms its scheduling scope.
 Prompts (27): 3 per industry across 9 (field service, healthcare and home care, retail, manufacturing and warehouse, hospitality, security, cleaning, landscaping, staffing).
@@ -724,10 +719,10 @@ Pages by Feb (8, by search volume): field service, cleaning (list and rebuild), 
 Lists (2): from the January read.`}
 ];
 const CHANNELS=[
- {id:'ch-a',n:`Listicles (off-site cited lists)`,when:`From Nov, every month`,own:`Agency`,how:`Lists that pass the citation rules above; queued placements kept only if they pass them.`,measure:`Lists live with Truein; cited within 30 days.`,tgt:`6 → 32 lists`},
- {id:'ch-b',n:`On-site content`,when:`Nov to Jan; Feb for the last clusters`,own:`Agency`,how:`Four deeper clusters first, two new clusters from Dec, secondary industries from Jan.`,measure:`Pages live by type; Truein pages cited; visibility per cluster; Search Console clicks and positions.`,tgt:`29 → 121 pages; cluster targets in the table above`},
+ {id:'ch-a',n:`Listicles (off-site cited lists)`,when:`From Nov, every month`,own:`Agency`,how:`Lists that pass the citation rules above; queued placements kept only if they pass them.`,measure:`Lists live with Truein; cited within 30 days.`,tgt:`6 → 31 lists`},
+ {id:'ch-b',n:`On-site content`,when:`Nov to Jan; Feb for the last clusters`,own:`Agency`,how:`Four deeper clusters first, two new clusters from Dec, secondary industries from Jan.`,measure:`Pages live by type; Truein pages cited; visibility per cluster; Search Console clicks and positions.`,tgt:`29 → 116 pages; cluster targets in the table above`},
  {id:'ch-c',n:`Other off-site content`,when:`From Dec`,own:`Agency`,how:`Guest articles, comparisons and how-tos on third-party sites in the same clusters.`,measure:`Pieces live; retrieved or cited within 30 days.`,tgt:`Count set in the agency's 29 Oct plan`},
- {id:'ch-f',n:`Reddit`,when:`From Nov, weekly`,own:`Agency drafts, Truein approves`,how:`Threads AI already cites, plus new matching threads.`,measure:`Replies live; threads cited; replies removed (should be 0).`,tgt:`5 planned replies (2 cited construction threads, 2 alternatives, 1 GPS) plus matches from the weekly watch; 0 removed`},
+ {id:'ch-f',n:`Reddit`,when:`From Nov, weekly`,own:`Agency drafts, Truein posts`,how:`Threads AI already cites, plus new matching threads.`,measure:`Replies live; threads cited.`,tgt:`5 planned replies (2 cited construction threads, 2 alternatives, 1 GPS) plus matches from the weekly watch`},
  {id:'ch-g',n:`LinkedIn Pulse`,when:`From Nov, two a month`,own:`Agency drafts, Truein posts`,how:`Reuses pages and stories already built.`,measure:`Posts live; reach; any post retrieved by AI.`,tgt:`8 posts`}
 ];
 const ASKS=[
@@ -755,10 +750,10 @@ function renderAgency(){
 const CHANNEL_PLAN=[
  {id:'chn-a',n:`Listicles (off-site cited lists)`,ph:'Base',when:`From Nov, every month`,owner0:'Agency (DerivateX)',
   how:`Only lists AI already cites for each cluster, from the Peec citation map. Get Truein added or refreshed on each; queued placements re-pointed to cited sites or dropped. Construction alone has 7 cited lists where Truein is absent.`,
-  measure:`Lists live with Truein; cited by AI within 30 days.`,tgt:`6 → 32 lists (agency clusters)`},
+  measure:`Lists live with Truein; cited by AI within 30 days.`,tgt:`6 → 31 lists (agency clusters)`},
  {id:'chn-b',n:`On-site content`,ph:'Base',when:`Nov, Dec, Jan; Feb for the last clusters`,owner0:'',
   how:`Agency: its seven clusters (four deeper from Nov, two new from Dec, secondary industries from Jan). In-house: the other clusters on the Clusters tab. Each page answers one first-turn question in the format AI cites for it.`,
-  measure:`Pages live by type; Truein pages cited; visibility per cluster; Search Console clicks and positions.`,tgt:`29 → 121 pages on agency clusters; in-house per the Clusters tab`},
+  measure:`Pages live by type; Truein pages cited; visibility per cluster; Search Console clicks and positions.`,tgt:`29 → 116 pages on agency clusters; in-house per the Clusters tab`},
  {id:'chn-c',n:`Other off-site content`,ph:'Base',when:`From Dec`,owner0:'Agency (DerivateX)',
   how:`Guest articles, comparisons and how-tos on third-party sites in the same clusters; kept only where AI retrieves or cites them.`,
   measure:`Pieces live; retrieved or cited within 30 days.`,tgt:`Count set in the agency's 29 Oct plan`},
@@ -769,8 +764,8 @@ const CHANNEL_PLAN=[
   how:`List videos per cluster: in construction the cited videos are vendor list videos (Jibble, Buddy Punch, Contractor Plus). One-question product walkthroughs (face verification, geofence set-up). Customer testimonial videos retitled as buyer questions. Each video embedded on its matching truein.com page with the transcript; Shorts cut for LinkedIn.`,
   measure:`Videos live; videos cited by AI; views; cited pages that carry a video.`,tgt:`Set by mid-Dec`,note0:`Agency's view asked by 29 Oct (Agency scope tab).`},
  {id:'chn-f',n:`Reddit`,ph:'Base',when:`From Nov, weekly`,owner0:'Agency (DerivateX)',
-  how:`Disclosed answers from one named person in threads AI already cites (construction has two, cited 320 and 67 times) and in new threads the weekly watch finds. One reply per thread, employer in the first line, no new accounts, no company upvotes. Truein approves every reply.`,
-  measure:`Replies live; threads cited; replies removed (should be 0).`,tgt:`5 planned replies plus matches from the weekly watch; 0 removed`},
+  how:`Disclosed answers from one named person in threads AI already cites (construction has two, cited 320 and 67 times) and in new threads the weekly watch finds. One reply per thread, employer in the first line, no new accounts, no company upvotes. The agency drafts; Truein posts every reply.`,
+  measure:`Replies live; threads cited.`,tgt:`5 planned replies plus matches from the weekly watch`},
  {id:'chn-g',n:`LinkedIn Pulse`,ph:'Base',when:`From Nov, two a month`,owner0:'Agency (DerivateX)',
   how:`Agency drafts, Ankit or Shreyas posts. Each post reuses a page or story already built: a cluster finding, a customer number, a data point. LinkedIn is under 1% of AI citations, so this is for reach and reuse, not visibility.`,
   measure:`Posts live; reach; any post retrieved by AI.`,tgt:`8 posts`},
