@@ -114,7 +114,7 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 <div class="banner" id="banner" hidden></div>
 <div class="wrap">
 <table class="main">
-  <thead><tr><th>Cluster</th><th>Google searches / month</th><th>Prompts: in bank · tracked in Peec</th><th>Truein named in AI answers (page state)</th><th>In-house pieces</th><th>Off-site lists: to pitch · live</th><th>Reddit threads</th><th>Misc</th><th>To decide</th><th>Owner</th><th>Priority</th><th>ETA</th><th>Status</th></tr></thead>
+  <thead><tr><th>Cluster</th><th>Google searches / month</th><th>Prompts: in bank · tracked in Peec</th><th>Truein named in AI answers (page state)</th><th>In-house: live · planned + gap</th><th>Off-site lists: to pitch · live</th><th>Reddit threads</th><th>Misc</th><th>To decide</th><th>Owner</th><th>Priority</th><th>ETA</th><th>Status</th></tr></thead>
   <tbody id="list"></tbody>
 </table>
 </div>
@@ -187,7 +187,7 @@ const CLUSTERS=[
  {u:'misc',ask:true,n:'YouTube: no citation evidence for timesheet videos. Check the demand prompts before making one.'},
  {u:'proof',ask:true,n:'Customer that replaced paper timesheets: hours saved per payroll run, disputes before and after.'}
 ]},
-{id:'us-03',market:'US',ring:1,name:'Construction time tracking',hub:'construction time tracking software · construction time clock app · contractor and crew tracking',hubType:'Listicle (hub) with comparison, product and cluster articles',searches:5550,truein:'weak',vis:{pct:3,n:11,note:'Construction 3.5% on 5 prompts, Contractor/Manpower 2.6% on 6'},peec:'Construction (5 prompts, 0 to 7%) and Contractor/Manpower (6 prompts, 0 to 7%); demand prompts US-001 to US-010 and US-081 to US-094',prompts:'46 bank (general 10, crew 8, scale 6, offline 8, integrations 10, payroll-led 4) · 11 Peec',tier:'Deep',prio:'P1',why:'The primary industry and the deepest cluster: 46 of the 130 bank prompts land here. Truein is at 0 to 7% on every construction prompt because no page ranks for the core terms. The 12 planned pieces cover the first-turn questions; the 9 gap pieces cover crew attribution, scale, offline, integrations and payroll-led buying, which the sheet does not touch.',pieces:[
+{id:'us-03',market:'US',ring:1,name:'Construction time tracking',hub:'construction time tracking software · construction time clock app · contractor and crew tracking',hubType:'Listicle (hub) with comparison, product and cluster articles',searches:5550,truein:'weak',vis:{pct:3,n:11,note:'Construction 3.5% on 5 prompts, Contractor/Manpower 2.6% on 6'},peec:'Construction (5 prompts, 0 to 7%) and Contractor/Manpower (6 prompts, 0 to 7%); demand prompts US-001 to US-010 and US-081 to US-094',prompts:'46 bank (general 10, crew 8, scale 6, offline 8, integrations 10, payroll-led 4) · 11 Peec',cov:{p:[11,46],on:[13,21],off:[2,5,10]},tier:'Deep',prio:'P1',why:'The primary industry and the deepest cluster: 46 of the 130 bank prompts land here. Truein is at 0 to 7% on every construction prompt because no page ranks for the core terms. The 12 planned pieces cover the first-turn questions; the 9 gap pieces cover crew attribution, scale, offline, integrations and payroll-led buying, which the sheet does not touch.',pieces:[
  {u:'in',t:'Listicle',n:'Best construction time tracking software (2027), ranked by jobsite verification (hub)',s:'Week 1',x:'weak /blogs/time-tracking-software-for-construction (position 10)'},
  {u:'in',t:'Comparison',n:'Construction time clock apps compared: ClockShark, Workyard, busybusy, Truein, ExakTime',s:'Week 1',x:'none; Workyard’s compare page is the most-cited US comparison (448)'},
  {u:'in',t:'Article',n:'Construction time clock: what a jobsite time clock needs in 2027',s:'Week 1',x:'none'},
@@ -222,8 +222,30 @@ const CLUSTERS=[
  {u:'in',t:'Product',n:'Sage and ADP payroll exports for crew hours (adp time clock 5,700 context)',s:'Gap',x:'US-075, US-076'},
  {u:'in',t:'Article',n:'Construction payroll software with a field time clock: what to look for (2,000)',s:'Gap',x:'US-119, US-122'},
  {u:'in',t:'Article',n:'Certified payroll and prevailing wage: the time records public projects need (500)',s:'Gap',x:'US-120, US-121'}
+ {u:'in',t:'Product',n:'Construction time tracking software (landing page, agency, 30 Sep)',s:'Live',x:'/construction-time-tracking-software; targets 4 panel prompts'},
+ {u:'in',t:'Product',n:'Construction industry attendance software (revamp, agency, 21 Sep)',s:'Live',x:'/construction-industry-attendance-software'},
+ {u:'in',t:'Listicle',n:'Best construction time tracking software: 12 tools compared (revamp, agency, 11 Sep)',s:'Live',x:'/blogs/time-tracking-software-for-construction; position 10'},
+ {u:'in',t:'Listicle',n:'Construction site attendance app: top options (optimisation, agency, 4 Sep)',s:'Live',x:'/blogs/construction-site-attendance-app; cited 12 on the India panel'},
+ {u:'in',t:'Article',n:'Offline attendance for construction sites (agency, 4 Sep)',s:'Live',x:'/blogs/offline-attendance-construction-sites'},
+ {u:'in',t:'Article',n:'Labor management in construction (revamp, agency, 4 Sep)',s:'Live',x:'/blogs/labor-management-in-construction'},
+ {u:'in',t:'Article',n:'Free construction timesheet template (optimisation, agency, 18 Sep)',s:'Live',x:'/blogs/construction-timesheet-template'},
+ {u:'in',t:'Article',n:'Timekeeping system: types, features, best options (optimisation, agency, 5 Oct)',s:'Live',x:'/blogs/timekeeping-system'},
+ {u:'in',t:'Listicle',n:'Best time tracking apps for contractors (revamp, agency, 16 Sep)',s:'Live',x:'/blogs/best-time-tracking-apps-for-contractors; 0 clicks, 10,922 impressions'},
+ {u:'in',t:'Article',n:'Managing multiple contractors (revamp, agency, 17 Sep)',s:'Live',x:'/blogs/managing-multiple-contractors'},
+ {u:'in',t:'Article',n:'Headcount planning and forecasting (revamp, agency, 2 Oct)',s:'Live',x:'/blogs/headcount-planning-and-forecasting'},
+ {u:'in',t:'Article',n:'How to manage a distributed workforce (optimisation, agency, 13 Oct)',s:'Live',x:'/blogs/distributed-workforce-management'},
+ {u:'in',t:'Article',n:'Best attendance software for hourly employees (optimisation, agency, 16 Oct)',s:'Live',x:'/blogs/best-attendance-software-for-hourly-employees'},
+ {u:'in',t:'Article',n:'Construction labor productivity (optimisation, agency)',s:'Queued (agency)',x:'in Truein review'},
+ {u:'in',t:'Article',n:'Time management in construction projects (optimisation, agency)',s:'Queued (agency)',x:'not started'},
+ {u:'off',t:'Agency',n:'indiehackers.com: tracking subcontractor hours at client sites (9 Oct)',s:'Published (agency)',x:'$0; contractor prompts; not cited'},
+ {u:'off',t:'Agency',n:'slashdot.org: 9 best time tracking software to manage multiple contractors',s:'Queued (agency)',x:'$330; to be published'},
+ {u:'off',t:'Agency',n:'bdcmagazine.com: best construction time tracking software, how to choose',s:'Queued (agency)',x:'$400; publisher review'},
+ {u:'off',t:'Agency',n:'8 best construction timekeeping software for mid-sized contractors (platform not set)',s:'Queued (agency)',x:'approved; targets US-001, 004, 009, 097'},
+ {u:'off',t:'Agency',n:'7 best construction time clocks that integrate with ADP (platform not set)',s:'Queued (agency)',x:'P3'},
+ {u:'reddit',t:'Agency',n:'Reddit seeding: time theft and buddy punching on multi-site crews (r/saas)',s:'Planned (agency)',x:'no status; disclosure rule applies'},
+ {u:'reddit',t:'Agency',n:'Reddit seeding: tracking subcontractor hours across client sites',s:'Planned (agency)',x:'no status; disclosure rule applies'}
 ]},
-{id:'us-04',market:'US',ring:1,name:'Face verification and buddy punching',hub:'face recognition time clock · biometric time clock · buddy punching · time theft',hubType:'Refresh of the cited page (hub) plus a biometric list and articles',searches:4360,truein:'cited',vis:{pct:53,n:4,note:'Face/Biometric 52.7%'},peec:'Face/Biometric (4 prompts, 43 to 68%: Truein’s strongest US topic); demand prompts US-029 to US-038',prompts:'11 bank (US-029 to 038, US-127) · 4 Peec',tier:'Standard',prio:'P2',why:'Already the strongest topic. Keep the place, add the biometric list and the TimeGuard story; the risk here is losing the position, not winning it.',pieces:[
+{id:'us-04',market:'US',ring:1,name:'Face verification and buddy punching',hub:'face recognition time clock · biometric time clock · buddy punching · time theft',hubType:'Refresh of the cited page (hub) plus a biometric list and articles',searches:4360,truein:'cited',vis:{pct:53,n:4,note:'Face/Biometric 52.7%'},peec:'Face/Biometric (4 prompts, 43 to 68%: Truein’s strongest US topic); demand prompts US-029 to US-038',prompts:'11 bank (US-029 to 038, US-127) · 4 Peec',cov:{p:[4,11],on:[9,8],off:[5,0,4]},tier:'Standard',prio:'P2',why:'Already the strongest topic. Keep the place, add the biometric list and the TimeGuard story; the risk here is losing the position, not winning it.',pieces:[
  {u:'in',t:'Refresh',n:'Best face recognition time clock software for construction crews (hub; cited 119 times)',s:'Week 1',x:'cited /face-recognition-time-clock-construction-crews'},
  {u:'in',t:'Listicle',n:'Best biometric time clocks for employees: face, fingerprint and app-based compared (1,000)',s:'Week 2',x:'none'},
  {u:'in',t:'Article',n:'Buddy punching: how it happens on jobsites and what stops it',s:'Week 1',x:'weak /blogs/what-is-buddy-punching-and-how-to-prevent-it'},
@@ -237,8 +259,21 @@ const CLUSTERS=[
  {u:'misc',ask:true,n:'YouTube: Buddy Punch and Jibble are cited for list videos, not feature clips. No evidence a feature clip gets cited; check the demand prompts first.'},
  {u:'proof',ask:true,n:'The buddy-punching number: a customer with before and after. Sales decks likely hold one; verify it under claims sign-off.'},
  {u:'in',t:'Product',n:'Selfie time clock with GPS for field employees: face verification on their own phone',s:'Gap',x:'US-031, US-035'}
+ {u:'in',t:'Product',n:'Face recognition attendance system (revamp, agency, 28 Aug)',s:'Live',x:'/face-recognition-attendance-system; ranks 1 in India'},
+ {u:'in',t:'Product',n:'Best face recognition time clock system to stop buddy punching (agency, 1 Sep)',s:'Live',x:'/face-recognition-time-clock-stop-buddy-punching'},
+ {u:'in',t:'Product',n:'Best time clock software to stop buddy punching (agency, 15 Sep)',s:'Live',x:'/time-clock-software-stop-buddy-punching; cited 17 on the India panel'},
+ {u:'in',t:'Product',n:'Best face recognition time clock software for construction crews (agency, 17 Sep)',s:'Live',x:'/face-recognition-time-clock-construction-crews; cited 119 (US)'},
+ {u:'in',t:'Product',n:'AI face recognition time clock software (agency, 18 Sep)',s:'Live',x:'/ai-face-recognition-time-clock-software; Peec 44%'},
+ {u:'in',t:'Article',n:'How to choose a face recognition attendance system (agency, 7 Aug)',s:'Live',x:'/blogs/how-to-choose-face-recognition-attendance-system'},
+ {u:'in',t:'Article',n:'What is buddy punching and how to prevent it (revamp, agency, 10 Aug)',s:'Live',x:'/blogs/what-is-buddy-punching-and-how-to-prevent-it'},
+ {u:'in',t:'Article',n:'Biometric attendance system: benefits, limitations, alternatives (optimisation, agency, 11 Sep)',s:'Live',x:'/blogs/biometric-attendance-system'},
+ {u:'in',t:'Article',n:'How to resolve buddy punching at construction sites (revamp, agency, 5 Oct)',s:'Live',x:'/blogs/get-over-buddy-punching-at-construction-sites'},
+ {u:'off',t:'Agency',n:'worldconstructiontoday.com: 7 best facial recognition and GPS attendance software for construction (6 Aug)',s:'Published (agency)',x:'$250; not in the cited top 60'},
+ {u:'off',t:'Agency',n:'apollotechnical.com: 9 best face recognition time clock software to stop buddy punching (6 Aug)',s:'Published (agency)',x:'$200; not in the cited top 60'},
+ {u:'off',t:'Agency',n:'ustechautomations.com: 9 best AI face recognition time clock software (3 Oct)',s:'Published (agency)',x:'$400; not in the cited top 60'},
+ {u:'misc',t:'Agency',n:'LinkedIn Pulse: the real cost of buddy punching (10 Aug) and the hidden time fraud problem (20 Aug), Shreyas',s:'Published (agency)',x:'$0; LinkedIn under 1% of citations'}
 ]},
-{id:'us-05',market:'US',ring:2,name:'GPS and geofencing time clocks',hub:'gps time clock app · geofencing time clock · time clock with GPS tracking',hubType:'Refresh of the cited list (hub) plus a GPS list and articles',searches:1150,truein:'cited',vis:{pct:2,n:5,note:'GPS / Multi-site 2.3%'},peec:'GPS / Multi-site (5 prompts, 0 to 7%); demand prompts US-011 to US-028',prompts:'27 bank (geofencing 10, polygon 8, automatic clock-in 8, US-096) · 5 Peec',tier:'Standard',prio:'P2',why:'27 bank prompts, the second-deepest topic, against a cited list and four planned pieces. The GPS prompts sit at 0 to 7% because the only geofencing product page is GCC-framed; the three gap pieces are the US product page, automatic clock in and out, and missed punches.',pieces:[
+{id:'us-05',market:'US',ring:2,name:'GPS and geofencing time clocks',hub:'gps time clock app · geofencing time clock · time clock with GPS tracking',hubType:'Refresh of the cited list (hub) plus a GPS list and articles',searches:1150,truein:'cited',vis:{pct:2,n:5,note:'GPS / Multi-site 2.3%'},peec:'GPS / Multi-site (5 prompts, 0 to 7%); demand prompts US-011 to US-028',prompts:'27 bank (geofencing 10, polygon 8, automatic clock-in 8, US-096) · 5 Peec',cov:{p:[5,27],on:[4,8],off:[1,1,5]},tier:'Standard',prio:'P2',why:'27 bank prompts, the second-deepest topic, against a cited list and four planned pieces. The GPS prompts sit at 0 to 7% because the only geofencing product page is GCC-framed; the three gap pieces are the US product page, automatic clock in and out, and missed punches.',pieces:[
  {u:'in',t:'Refresh',n:'10 best geofencing apps and time clock software for employees (hub; cited 121 times)',s:'Week 1',x:'cited /blogs/best-geofencing-time-clock-apps-for-employees'},
  {u:'in',t:'Listicle',n:'Best GPS time clock apps with geofencing (2027)',s:'Week 2',x:'none'},
  {u:'in',t:'Article',n:'Time clock with GPS tracking: what gets recorded, what doesn’t, and the privacy line',s:'Week 2',x:'none'},
@@ -253,8 +288,16 @@ const CLUSTERS=[
  {u:'in',t:'Product',n:'Geofencing time clock for US job sites: clock-in only inside the site boundary, polygon shapes',s:'Gap',x:'US-012, 014, 016, 017, 021 to 028; the existing page is GCC-framed'},
  {u:'in',t:'Product',n:'Automatic clock in and out by geofence: arrival and departure without opening the app',s:'Gap',x:'US-063 to US-069'},
  {u:'in',t:'Article',n:'Missed punches: auto clock-out, foreman alerts and end-of-day rules',s:'Gap',x:'US-066, US-070'}
+ {u:'in',t:'Listicle',n:'Best geofencing time clock apps for employees (revamp, agency, 10 Sep)',s:'Live',x:'/blogs/best-geofencing-time-clock-apps-for-employees; cited 121 (US)'},
+ {u:'in',t:'Article',n:'What is geofencing and how does it work (revamp, agency, 22 Sep)',s:'Live',x:'/blogs/what-is-geofencing-and-how-does-it-work; position 21'},
+ {u:'in',t:'Article',n:'Location-based attendance system for field teams (optimisation, agency, 29 Sep)',s:'Live',x:'/blogs/location-based-attendance-system'},
+ {u:'in',t:'Listicle',n:'Top 5 time clocks for multiple locations (optimisation, agency, 9 Oct)',s:'Live',x:'/blogs/top-time-clock-for-multiple-locations'},
+ {u:'in',t:'Listicle',n:'6 best employee scheduling software for multiple locations (optimisation, agency)',s:'Queued (agency)',x:'/blogs/employee-scheduling-software-for-multiple-locations'},
+ {u:'off',t:'Agency',n:'derivatex.hashnode.dev: GPS time clock apps with identity verification compared (16 Oct)',s:'Published (agency)',x:'$0; agency-owned blog, not a cited source'},
+ {u:'off',t:'Agency',n:'theenterpriseworld.com: 9 best geofencing time tracking apps for distributed teams',s:'Queued (agency)',x:'$265; in Truein review'},
+ {u:'reddit',t:'Agency',n:'Reddit seeding: GPS and geofence clock-in for remote crews',s:'Planned (agency)',x:'no status; disclosure rule applies'}
 ]},
-{id:'us-06',market:'US',ring:2,name:'Alternatives and comparisons',hub:'clockshark alternative · busybusy alternative · connecteam alternative · Truein vs X',hubType:'Alternatives pages (hub) and Truein-vs comparisons',searches:460,truein:'weak',vis:{pct:11,n:10,note:'Alternatives 10.5%; the two face-angled prompts carry it (66%, 31%), six of ten are 0 to 2%'},peec:'Alternatives (10 prompts, 0 to 68%: the face-angled ones win, the plain ones are 0%); demand prompts US-109 to US-118',prompts:'16 bank (incumbents 10, shortlist 6) · 10 Peec',tier:'Deep',prio:'P1',why:'Alternatives (12%) and comparisons (9%) are a fifth of US citations; Truein has four 2024 pages. The direct searches are small but the incumbents’ own terms are 21,000+ a month (QuickBooks Time, Homebase).',pieces:[
+{id:'us-06',market:'US',ring:2,name:'Alternatives and comparisons',hub:'clockshark alternative · busybusy alternative · connecteam alternative · Truein vs X',hubType:'Alternatives pages (hub) and Truein-vs comparisons',searches:460,truein:'weak',vis:{pct:11,n:10,note:'Alternatives 10.5%; the two face-angled prompts carry it (66%, 31%), six of ten are 0 to 2%'},peec:'Alternatives (10 prompts, 0 to 68%: the face-angled ones win, the plain ones are 0%); demand prompts US-109 to US-118',prompts:'16 bank (incumbents 10, shortlist 6) · 10 Peec',cov:{p:[10,16],on:[3,19],off:[1,4,6]},tier:'Deep',prio:'P1',why:'Alternatives (12%) and comparisons (9%) are a fifth of US citations; Truein has four 2024 pages. The direct searches are small but the incumbents’ own terms are 21,000+ a month (QuickBooks Time, Homebase).',pieces:[
  {u:'in',t:'Alternative',n:'Best ClockShark alternatives for construction crews (2027) (hub)',s:'Week 1',x:'weak /comparison/clockshark-alternative (2024)'},
  {u:'in',t:'Comparison',n:'Truein vs ClockShark: verified clock-ins vs GPS-only',s:'Week 2',x:'cited /truein-vs-clockshark-vs-exaktime-live-face-verification-compared'},
  {u:'in',t:'Comparison',n:'Truein vs Workyard: who verifies the person, not just the phone',s:'Week 2',x:'none'},
@@ -282,6 +325,15 @@ const CLUSTERS=[
  {u:'in',t:'Article',n:'Workyard pricing for a mid-size contractor (100)',s:'Gap',x:'US-116'},
  {u:'in',t:'Article',n:'What a construction time clock app should cost per worker',s:'Gap',x:'US-118'},
  {u:'in',t:'Article',n:'Construction time tracking RFP checklist: the shortlist questions',s:'Gap',x:'US-100'}
+ {u:'in',t:'Comparison',n:'Truein vs ClockShark vs ExakTime: face verification vs GPS-only (agency, 24 Sep)',s:'Live',x:'/truein-vs-clockshark-vs-exaktime-live-face-verification-compared; cited'},
+ {u:'in',t:'Alternative',n:'7 best ExakTime alternatives for construction time tracking (agency, 15 Oct)',s:'Live',x:'/blogs/exaktime-alternatives'},
+ {u:'in',t:'Alternative',n:'7 best WorkMax alternatives for contractor time tracking (agency, 16 Oct)',s:'Live',x:'/blogs/workmax-alternatives-contractor-time-tracking'},
+ {u:'off',t:'Agency',n:'highways.today: 9 best ClockShark and busybusy alternatives (30 Sep)',s:'Published (agency)',x:'$330; busybusy prompt still 0%'},
+ {u:'off',t:'Agency',n:'work-management.org: 9 best ClockShark alternatives for construction crews',s:'Queued (agency)',x:'$350; publisher review'},
+ {u:'off',t:'Agency',n:'techbullion.com: ExakTime alternatives, photo capture vs live face verification',s:'Queued (agency)',x:'$167; in Truein review'},
+ {u:'off',t:'Agency',n:'dupple.com: Raken, WorkMax and VeriClock alternatives',s:'Queued (agency)',x:'$400; in Truein review'},
+ {u:'off',t:'Agency',n:'itechguides.com: 7 best Raken, WorkMax and VeriClock alternatives',s:'Queued (agency)',x:'$300; to be published'},
+ {u:'reddit',t:'Agency',n:'Reddit seeding: ClockShark alternatives for multi-site crews; photo review vs live face verification',s:'Planned (agency)',x:'two threads, no status; disclosure rule applies'}
 ]},
 {id:'us-07',market:'US',ring:2,name:'Remote and mobile time tracking',hub:'mobile time clock · remote employee time tracking · time tracking without surveillance',hubType:'Product page rebuild (hub) plus articles',searches:2550,truein:'weak',vis:{pct:0,n:1,note:'distributed workforce prompt 0%'},peec:'GPS / Multi-site, one prompt (time tracking software for distributed workforce, 0%); demand prompts US-055 to US-062',prompts:'8 bank (US-055 to 062) · 1 Peec',tier:'Standard',prio:'P2',why:'2,550 searches a month, the product page gets 41 clicks a quarter, and the angle (verification without monitoring) is one no rival takes.',pieces:[
  {u:'in',t:'Product',n:'Mobile time clock app for field employees (rebuild) (hub)',s:'Week 2',x:'weak /mobile-based-attendance-system (41 clicks a quarter)'},
@@ -466,8 +518,9 @@ let decisions={}, asks={};
 
 function countUnit(c,u){ return c.pieces.filter(p=>p.u===u&&!p.ask).length }
 function askCount(c){ return c.pieces.filter(p=>p.ask).length + (asks[c.id]||[]).length }
-function offSummary(c){ const o=c.pieces.filter(p=>p.u==='off'&&!p.ask); const live=o.filter(p=>/^live/i.test(p.s)).length; const skip=o.filter(p=>/skip|out-build/i.test(p.s)).length; return {target:o.length-live-skip,live} }
+function offSummary(c){ const o=c.pieces.filter(p=>p.u==='off'&&!p.ask); const live=o.filter(p=>/^live/i.test(p.s)).length; const skip=o.filter(p=>/skip|out-build|agency/i.test(p.s)).length; return {target:o.length-live-skip,live} }
 const gapCount=c=>c.pieces.filter(p=>p.u==='in'&&p.s==='Gap').length;
+const liveCount=c=>c.pieces.filter(p=>p.u==='in'&&p.s==='Live').length;
 function promptCounts(c){ const m=(c.prompts||'').match(/^(\d+) bank.*?(\d+) Peec/); if(m) return [m[1],m[2]]; const p=(c.peec||'').match(/(\d+) prompt/); return ['0', p?p[1]:'0'] }
 const sel=(k,id,opts)=>`<select data-k="${k}" data-id="${id}" id="${k}-${id}">${opts.map(o=>`<option value="${esc(o)}">${esc(o||'—')}</option>`).join('')}</select>`;
 
@@ -478,11 +531,11 @@ function renderList(){
     const row=document.createElement('tr'); row.className='row'; row.id=c.id; row.dataset.id=c.id;
     row.innerHTML=`<td class="name" role="button" tabindex="0" aria-expanded="false"><b>${esc(c.name)}</b><small>${c.market} · R${c.ring} · ${esc(c.tier)} · ${esc(c.prio)} suggested</small></td>
       <td class="num">${fmt(c.searches)}</td><td class="c" title="${esc(c.prompts||c.peec)}">${promptCounts(c).join(' · ')}</td><td class="c" title="${esc(c.vis?c.vis.note+' (Peec, 30 days to 20 Oct)':'no prompts tracked for this cluster')}">${c.vis?`<b>${c.vis.pct}%</b> on ${c.vis.n}`:'not tracked'} <span class="pill ${c.truein}">${c.truein}</span></td>
-      <td class="c">${countUnit(c,'in')}${gapCount(c)?' ('+gapCount(c)+' gap)':''}</td><td class="c">${os.target} · ${os.live}</td><td class="c">${countUnit(c,'reddit')}</td><td class="c">${countUnit(c,'misc')}</td><td class="c" data-askcount>${askCount(c)}</td>
+      <td class="c" style="white-space:nowrap">${liveCount(c)?liveCount(c)+' live · ':''}${countUnit(c,'in')-gapCount(c)-liveCount(c)} planned${gapCount(c)?' + '+gapCount(c)+' gap':''}</td><td class="c">${os.target} · ${os.live}</td><td class="c">${countUnit(c,'reddit')}</td><td class="c">${countUnit(c,'misc')}</td><td class="c" data-askcount>${askCount(c)}</td>
       <td class="f">${sel('owner',c.id,OWNERS)}</td><td class="f">${sel('priority',c.id,PRIORITIES)}</td><td class="f"><input type="text" data-k="eta" data-id="${c.id}" id="eta-${c.id}" placeholder="16 Nov"></td><td class="f">${sel('status',c.id,STATUSES)}</td>`;
     const det=document.createElement('tr'); det.className='detail'; det.hidden=true; det.dataset.id=c.id;
     det.innerHTML=`<td colspan="13">${promptCounts(c)[1]<2?`<div class="pre"><b>Before deciding this cluster</b><ol><li>Build the prompt bank.</li><li>Put it in Peec, run 2 to 4 weeks.</li><li>Read what gets cited.</li><li>Then set depth, page types and off-site targets. Until then: hub only.</li></ol></div>`:''}
-      <p class="meta"><b>Hub:</b> ${esc(c.hub)} · <b>Page type:</b> ${esc(c.hubType)} · <b>Prompts:</b> ${esc(c.prompts||'none in the bank')} · <b>Named in AI answers:</b> ${c.vis?esc(c.vis.pct+'% on '+c.vis.n+' prompts; '+c.vis.note+' (Peec, 30 days to 20 Oct)'):'not tracked'} · <b>Peec:</b> ${esc(c.peec)}<br><b>Suggested ${esc(c.tier)}, ${esc(c.prio)}:</b> ${esc(c.why)}</p>
+      <p class="meta"><b>Hub:</b> ${esc(c.hub)} · <b>Page type:</b> ${esc(c.hubType)} · <b>Prompts:</b> ${esc(c.prompts||'none in the bank')} · <b>Named in AI answers:</b> ${c.vis?esc(c.vis.pct+'% on '+c.vis.n+' prompts; '+c.vis.note+' (Peec, 30 days to 20 Oct)'):'not tracked'} · <b>Peec:</b> ${esc(c.peec)}<br><b>Suggested ${esc(c.tier)}, ${esc(c.prio)}:</b> ${esc(c.why)}${c.cov?`<br><b>Coverage today → target:</b> prompts tracked ${c.cov.p[0]} of ${c.cov.p[1]} in the bank → all ${c.cov.p[1]}; on-site live ${c.cov.on[0]} → ${c.cov.on[0]+c.cov.on[1]} (planned plus gap on top of what is live); off-site placements published ${c.cov.off[0]}, queued ${c.cov.off[1]} → ${c.cov.off[2]} on lists AI cites, judged by the 30-day rule`:'}</p>
       <div class="units">${['in','off','reddit','misc','proof'].map(u=>unitHtml(c,u)).join('')}</div>
       <div class="note"><label for="note-${c.id}" style="font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)">Note</label><textarea data-k="note" data-id="${c.id}" id="note-${c.id}" rows="1"></textarea></div></td>`;
     tb.appendChild(row); tb.appendChild(det);
