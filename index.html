@@ -138,8 +138,14 @@ tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);backgro
 <section data-panel="agency" hidden>
 <h2 style="font-size:15px;margin:4px 0 8px">What changes</h2>
 <div class="wrap"><table class="main"><thead><tr><th>Term</th><th>Detail</th></tr></thead><tbody id="termlist"></tbody></table></div>
-<h2 style="font-size:15px;margin:22px 0 8px">Clusters, prompts and targets</h2>
-<div class="wrap"><table class="main"><thead><tr><th>Cluster</th><th>Prompts tracked<br>(now → Feb)</th><th>Named in AI answers<br>(now)</th><th>Target<br>end Dec</th><th>Target<br>end Feb</th><th>Pages on truein.com<br>(live → Feb)</th><th>On cited lists<br>(now → Feb)</th><th>Notes: new prompts, pages, lists</th></tr></thead><tbody id="aglist"></tbody>
+<h2 style="font-size:15px;margin:22px 0 8px">Where we start: what the agency has published</h2>
+<div class="wrap"><table class="main"><thead><tr><th>Cluster</th><th>On-site pages published</th><th>Off-site pieces published</th><th>Of those, on lists AI cites</th><th>Off-site queued or in review</th></tr></thead><tbody>
+<tr class="row"><td class="name" style="cursor:default"><b>US construction time tracking</b></td><td class="c">13</td><td class="c">2</td><td class="c">1</td><td class="c">5</td></tr>
+<tr class="row"><td class="name" style="cursor:default"><b>US face verification and buddy punching</b></td><td class="c">9</td><td class="c">4</td><td class="c">1</td><td class="c">0</td></tr>
+<tr class="row"><td class="name" style="cursor:default"><b>US GPS and geofencing</b></td><td class="c">4</td><td class="c">0</td><td class="c">0</td><td class="c">2</td></tr>
+<tr class="row"><td class="name" style="cursor:default"><b>US alternatives and comparisons</b></td><td class="c">3</td><td class="c">1</td><td class="c">0</td><td class="c">4</td></tr>
+</tbody><tfoot><tr><td class="name"><b>Total</b></td><td class="c">29</td><td class="c">7</td><td class="c">2</td><td class="c">11</td></tr><tr><td></td><td colspan="4" style="white-space:normal;color:var(--muted)">From the agency's master sheet tab, 22 Oct. Also published: 4 GCC and India placements (hrfuture.net, hrtechsaas.com, constructionreviewonline.com, roboticsandautomationnews.com) and 2 LinkedIn Pulse posts, outside these clusters. The 2 on cited lists are constructionplacements.com (cited 112 times) and foundonai.com (76). The cluster table's 3 also counts Fareclock, which listed Truein before.</td></tr></tfoot></table></div><h2 style="font-size:15px;margin:22px 0 8px">Clusters, prompts and targets</h2>
+<div class="wrap"><table class="main"><thead><tr><th>Cluster</th><th>Prompts tracked<br>(now → Feb)</th><th>Named in AI answers<br>(now)</th><th>Target<br>end Dec</th><th>Target<br>end Feb</th><th>Pages on truein.com<br>(published → Feb)</th><th>On cited lists<br>(now → Feb)</th><th>Our proposal: prompts, pages, lists (editable)</th></tr></thead><tbody id="aglist"></tbody>
 <tfoot><tr><td class="name"><b>Total</b></td><td class="c">30 → 153 US, 0 → 5 GCC</td><td></td><td></td><td></td><td class="c">29 → 113</td><td class="c">3 → 24</td><td style="white-space:normal;color:var(--muted)">Peec, 30 days to 20 Oct. Targets are proposals to agree with DerivateX. Notes save for everyone.</td></tr></tfoot></table></div>
 <h2 style="font-size:15px;margin:22px 0 8px">When and how, by channel</h2>
 <div class="wrap"><table class="main"><thead><tr><th>Activity</th><th>When</th><th>Owner</th><th>How we go about it</th><th>What we measure</th><th>Target by end Feb</th><th>Notes</th></tr></thead><tbody id="chlist"></tbody></table></div>
@@ -669,49 +675,50 @@ function renderProof(){
 
 // ---- Agency scope, Nov 2026 to Feb 2027: mirrors specs/Truein-DerivateX-scope-Nov2026-Feb2027.pdf; Notes save to the store like any note
 const TERMS=[
- {n:`Clusters, not placements`,d:`The agency owns seven clusters: four it is in now, going deeper, and three it picks up in sequence.`},
- {n:`Measurement in the agency's Peec workspace`,d:`Proposed, to confirm with Ankit. It tracks the full prompt set of each of the seven clusters, with the same engines and countries as Truein's workspace. Truein gets full access. Prompts are added or removed only with Truein's OK. Monthly export of the raw data; if the engagement ends, the workspace history comes to Truein. Truein tracks about 15 of the same prompts in its own workspace as a check.`},
- {n:`Placements on cited lists only`,d:`A placement counts when it sits on a list AI already cites and an engine retrieves or cites it within 30 days. Paid links carry the sponsored tag.`}
+ {n:`Clusters, not placements`,d:`The agency owns seven clusters: the four it is in now, going deeper, and three it picks up in sequence.`},
+ {n:`Counts are fixed, picks are open`,d:`The numbers (prompts, pages, lists, posts) are what we want to agree on. The specific prompts, pages and lists are our proposal; where the agency would pick different ones, it tells us which and why.`},
+ {n:`Measurement in the agency's Peec workspace`,d:`Proposed, to confirm with Ankit. It tracks the full prompt set of each cluster, with the same engines and countries as Truein's workspace. Truein gets full access. Prompts are added or removed only with Truein's OK. Monthly export of the raw data; if the engagement ends, the workspace history comes to Truein. Truein tracks about 15 of the same prompts in its own workspace as a check. Asked: how many prompts their plan can hold (104 US in Nov, 126 US and 5 GCC in Dec, 153 US and 5 GCC from Jan).`},
+ {n:`Which lists and citations count`,d:`AI already cites the page for the cluster's prompts in the last 30 days, ideally on more than one prompt or engine. It names vendors (list, alternatives or comparison) and Truein is absent or low. The site has real organic traffic, suggested at least 1,000 visits a month unless AI already cites it often, and does not exist to sell placements. Right market. Updated in the last 12 months. Picked up by an engine within 30 days of Truein going on it, or it does not count. Paid links carry the sponsored tag.`}
 ];
 const AGENCY=[
- {id:'ag-us-03',name:`US construction time tracking`,mk:'US',kind:'Deeper',start:'Running',p:'11 → 46',now:'3.5%',t2:'10%',t4:'20%',con:'13 → 36',off:'1 → 6',note0:`Prompts: all 46 bank prompts (US-001 to 010, 039 to 046, 071 to 094, 119 to 122).
-Pages (23): lists: construction time tracking software (rebuild), time card list. Comparison: construction time clock apps. Product: crew clock-in. Articles: jobsite time clock, phone or kiosk, no-paper tracking, time clocks for job sites, contractor time tracking, subcontractor hours, labor tracking, crew scheduling, 2 refreshes. Gap pages: daily jobsite headcount, two-site crews, enterprise scale, offline, integrations hub, Procore, Sage and ADP exports, construction payroll software, certified payroll.
-Lists: Contractor Guide Pro, Digital Project Manager (list and alternatives), Arcoro, Timen, WorkMax, Eyrus; the 5 queued placements moved to cited sites or dropped.
-Reddit: answers in the 2 cited threads.`},
- {id:'ag-us-04',name:`US face verification and buddy punching`,mk:'US',kind:'Deeper',start:'Running',p:'4 → 11',now:'52.7%',t2:'45% or more',t4:'55%',con:'9 → 17',off:'2 → 4',note0:`Prompts: US-029 to 038, US-127 (biometric time clock). The number dips as harder prompts come in.
-Pages (8): biometric time clock list, buddy punching rebuild, time theft rebuild, facial recognition and privacy law, TimeGuard detection article, 2 refreshes, gap page: selfie time clock with GPS.
-Lists: refresh the Fareclock entry, FoundOnAI GCC sibling, 2 new biometric lists from the citation read. Three published placements are not among cited sources; no more off the cited list.`},
- {id:'ag-us-05',name:`US GPS and geofencing`,mk:'US',kind:'Deeper',start:'Running',p:'5 → 27',now:'2.3%',t2:'8%',t4:'15%',con:'4 → 13',off:'0 → 4',note0:`Prompts: geofencing US-011 to 020, polygon US-021 to 028, automatic clock-in US-063 to 070, US-096.
-Pages (9): GPS time clock list, GPS privacy article, geofencing rebuild, employee location refresh, geofencing list refresh, multi-location scheduling list. Gap pages: US geofencing product page, automatic clock in and out, missed punches.
-Lists: Fit Small Business, Shifton, Apploye GPS list; The Enterprise World only if cited by then.`},
- {id:'ag-us-06',name:`US alternatives and comparisons`,mk:'US',kind:'Deeper',start:'Running',p:'10 → 20',now:'10.5%',t2:'18%',t4:'25%',con:'3 → 21',off:'0 → 4',note0:`Prompts: incumbents US-109 to 118, shortlist US-095 to 100, merged with the 10 tracked; six of today's 10 are at 0 to 2%, target 10% or more on those six.
-Pages (18): alternatives to ClockShark (rebuild), Homebase, Workyard, Connecteam, busybusy, QuickBooks Time. Truein vs ClockShark (refresh), Workyard, Connecteam, Jibble, QuickBooks Time. Kiosk vs phone. Gap pages: ClockShark, busybusy, ExakTime and Workyard pricing, cost per worker, RFP checklist.
-Lists: Digital Project Manager ClockShark alternatives, TaskTag, Miter; G2 category and reviews. The 4 queued placements only if cited.
+ {id:'ag-us-03',name:`US construction time tracking`,mk:'US',kind:'Deeper',start:'Running',p:'11 → 46',now:'3.5%',t2:'10%',t4:'20%',con:'13 → 36',off:'1 → 6',note0:`Prompts (46): the bank set US-001 to 010, 039 to 046, 071 to 094, 119 to 122; the 11 tracked today fold in.
+Pages (23 new): lists: construction time tracking software (rebuild), time card list. Comparison: construction time clock apps. Product: crew clock-in. Articles: jobsite time clock, phone or kiosk, no-paper tracking, time clocks for job sites, contractor time tracking, subcontractor hours, labor tracking, crew scheduling, 2 refreshes. Gap pages: daily jobsite headcount, two-site crews, enterprise scale, offline, integrations hub, Procore, Sage and ADP exports, construction payroll software, certified payroll.
+Lists (5 new): our read shows 7 cited construction lists that name ClockShark or Workyard but not Truein; your pick against section 6. Queued placements count only if they pass it.
+Reddit: answers in the 2 threads AI cites.`},
+ {id:'ag-us-04',name:`US face verification and buddy punching`,mk:'US',kind:'Deeper',start:'Running',p:'4 → 11',now:'52.7%',t2:'45% or more',t4:'55%',con:'9 → 17',off:'2 → 4',note0:`Prompts (11): US-029 to 038, US-127 (biometric time clock). The number dips as harder prompts come in.
+Pages (8 new): biometric time clock list, buddy punching rebuild, time theft rebuild, facial recognition and privacy law, TimeGuard detection article, 2 refreshes, gap page: selfie time clock with GPS.
+Lists (2 new): biometric or face-recognition lists that pass section 6, plus refreshing the cited lists where Truein already appears.`},
+ {id:'ag-us-05',name:`US GPS and geofencing`,mk:'US',kind:'Deeper',start:'Running',p:'5 → 27',now:'2.3%',t2:'8%',t4:'15%',con:'4 → 13',off:'0 → 4',note0:`Prompts (27): geofencing US-011 to 020, polygon US-021 to 028, automatic clock-in US-063 to 070, US-096.
+Pages (9 new): GPS time clock list, GPS privacy article, geofencing rebuild, employee location refresh, geofencing list refresh, multi-location scheduling list. Gap pages: US geofencing product page, automatic clock in and out, missed punches.
+Lists (4 new): our read shows cited GPS and geofencing lists, including a review site that tests tools; your pick against section 6.`},
+ {id:'ag-us-06',name:`US alternatives and comparisons`,mk:'US',kind:'Deeper',start:'Running',p:'10 → 20',now:'10.5%',t2:'18%',t4:'25%',con:'3 → 21',off:'0 → 4',note0:`Prompts (about 20): incumbents US-109 to 118, shortlist US-095 to 100, merged with the 10 tracked; six of today's 10 are at 0 to 2%, and the aim is 10% or more on those six.
+Pages (18 new): alternatives to ClockShark (rebuild), Homebase, Workyard, Connecteam, busybusy, QuickBooks Time. Truein vs ClockShark (refresh), Workyard, Connecteam, Jibble, QuickBooks Time. Kiosk vs phone. Gap pages: ClockShark, busybusy, ExakTime and Workyard pricing, cost per worker, RFP checklist.
+Lists (4 new): cited alternatives lists for ClockShark and the other incumbents, and a G2 category presence so G2-based alternatives pages list Truein; your pick against section 6.
 Reddit: 2 seeds.`},
  {id:'ag-us-01',name:`US employee time clock apps`,mk:'US',kind:'New',start:'Starts Dec',p:'0 → 22',now:'Not tracked',t2:'Tracked, baseline set',t4:'5%',con:'0 → 13',off:'0 → 3',note0:`Why 5%: construction reached 3.5% after 13 pages in about three months, and this category is crowded. Largest demand in the plan, about 18,000 searches a month.
-Prompts: kiosk US-047 to 054, demand US-123 to 126, plus 10 new (clock in and out app, free time clock app, iPad time clock, punch clock vs app, small business with GPS, field and office staff, supervisor clock-in, multi-site time clock, time clock kiosk, best time clock apps 2027).
+Prompts (22): kiosk US-047 to 054, demand US-123 to 126, plus 10 new (clock in and out app, free time clock app, iPad time clock, punch clock vs app, small business with GPS, field and office staff, supervisor clock-in, multi-site time clock, time clock kiosk, best time clock apps 2027).
 Pages (13): 5 lists (employee time clock apps hub, clock in and out apps, small business with GPS, best time clock apps 2027, field and office staff), 2 product pages (tablet kiosk, supervisor clock-in), 6 articles.
-Lists: from the December citation read.`},
+Lists (3): from the December citation read, against section 6.`},
  {id:'ag-gcc-08',name:`GCC Arabic (Saudi)`,mk:'GCC',kind:'New',start:'Starts Dec',p:'0 → 5',now:'Not tracked',t2:'Tracked, baseline set',t4:'10%',con:'0 → 5',off:'0 → 1',note0:`Why 10%: Truein is named in 40 to 45% of English GCC answers where it has pages; Arabic starts with no page.
 Before briefing: Truein names a native Arabic reviewer.
-Prompts: 5 Arabic prompts in the GCC project.
+Prompts (5): Arabic prompts in the GCC project.
 Pages (5): product hub, HR integration, fingerprint machine vs app comparison, how to choose an attendance programme, best systems in Saudi Arabia list.
-Lists: from the December read.`},
+Lists (1): from the December read.`},
  {id:'ag-us-08',name:`US secondary industries`,mk:'US',kind:'New',start:'Starts Jan',p:'0 → 27',now:'Not tracked',t2:'Not started',t4:'3%',con:'0 → 8 of 19',off:'0 → 2',note0:`Why 3%: one month of pages before the February read.
 Before January: Truein confirms its scheduling scope.
-Prompts: 3 per industry across 9 (field service, healthcare and home care, retail, manufacturing and warehouse, hospitality, security, cleaning, landscaping, staffing).
+Prompts (27): 3 per industry across 9 (field service, healthcare and home care, retail, manufacturing and warehouse, hospitality, security, cleaning, landscaping, staffing).
 Pages by Feb (8, by search volume): field service, cleaning (list and rebuild), retail, hospitality, healthcare and home care, security, manufacturing and warehouse. The other 11 in the next period.
-Lists: from the January read.`}
+Lists (2): from the January read.`}
 ];
 const CHANNELS=[
- {id:'ch-a',n:`Listicles (off-site cited lists)`,when:`From Nov, every month`,own:`Agency`,how:`Only lists AI already cites for each cluster; queued placements moved to cited sites or dropped.`,measure:`Lists live with Truein; cited within 30 days.`,tgt:`3 → 24 lists`},
+ {id:'ch-a',n:`Listicles (off-site cited lists)`,when:`From Nov, every month`,own:`Agency`,how:`Lists that pass the citation rules above; queued placements kept only if they pass them.`,measure:`Lists live with Truein; cited within 30 days.`,tgt:`3 → 24 lists`},
  {id:'ch-b',n:`On-site content`,when:`Nov to Jan; Feb for the last clusters`,own:`Agency`,how:`Four deeper clusters first, two new clusters from Dec, secondary industries from Jan.`,measure:`Pages live by type; Truein pages cited; visibility per cluster; Search Console clicks and positions.`,tgt:`29 → 113 pages; cluster targets in the table above`},
  {id:'ch-c',n:`Other off-site content`,when:`From Dec`,own:`Agency`,how:`Guest articles, comparisons and how-tos on third-party sites in the same clusters.`,measure:`Pieces live; retrieved or cited within 30 days.`,tgt:`Count set in the agency's 29 Oct plan`},
  {id:'ch-f',n:`Reddit`,when:`From Nov, weekly`,own:`Agency drafts, Truein approves`,how:`Threads AI already cites, plus new matching threads.`,measure:`Replies live; threads cited; replies removed (should be 0).`,tgt:`5 planned replies (2 cited construction threads, 2 alternatives, 1 GPS) plus matches from the weekly watch; 0 removed`},
  {id:'ch-g',n:`LinkedIn Pulse`,when:`From Nov, two a month`,own:`Agency drafts, Truein posts`,how:`Reuses pages and stories already built.`,measure:`Posts live; reach; any post retrieved by AI.`,tgt:`8 posts`}
 ];
 const ASKS=[
- {id:'ask-1',by:`29 Oct`,w:`Their take on PR, YouTube, Medium and podcasts (table below). Their prompt expansion and content plan for each of the seven clusters, with any change to the targets. Commercials: monthly retainer, placement budget as a separate line.`},
+ {id:'ask-1',by:`29 Oct`,w:`Agreement on the counts, or the counts they would commit to instead. Where they would pick different prompts, pages or lists than ours: which, and why. How many prompts their Peec plan can hold. Commercials: monthly retainer, placement budget as a separate line. Their take on PR, YouTube, Medium and podcasts (table below).`},
  {id:'ask-2',by:`Week 1 of Nov`,w:`The prompt sets of the four deeper clusters live in the agency's Peec workspace, with Truein given full access. The three new clusters follow when they start.`},
  {id:'ask-3',by:`From Nov, ongoing`,w:`Every row in the agency's master sheet tab tagged with cluster and channel.`},
  {id:'ask-4',by:`Monthly`,w:`Report per cluster on the measures above, plus Search Console clicks and positions.`}
