@@ -40,7 +40,9 @@ table{border-collapse:collapse;width:100%}
 .main>tbody>tr.row>td{padding:6px 8px;border-top:1px solid var(--line);white-space:nowrap;vertical-align:middle}
 .main>tbody>tr.row:hover>td{background:var(--surface-2)}
 .main>tbody>tr.row[hidden],.main>tbody>tr.detail[hidden]{display:none}
-td.name{white-space:normal;min-width:230px;cursor:pointer}
+td.name{white-space:normal;min-width:230px;max-width:280px;cursor:pointer;position:sticky;left:0;z-index:2;background:var(--surface);box-shadow:inset -1px 0 0 var(--line)}
+.main>thead th:first-child{position:sticky;left:0;z-index:3;box-shadow:inset -1px 0 0 var(--line)}
+.main>tbody>tr.row:hover>td.name{background:var(--surface-2)}
 td.name b{font-weight:600}
 td.name small{display:block;color:var(--muted);font-size:11.5px}
 td.num{text-align:right;font-variant-numeric:tabular-nums}
@@ -58,7 +60,9 @@ td.f.p0 select{background:color-mix(in srgb,var(--p0) 18%,var(--surface));border
 td.f.p1 select{background:color-mix(in srgb,var(--p1) 18%,var(--surface));border-color:var(--p1);color:var(--p1);font-weight:600}
 td.f.p2 select{background:color-mix(in srgb,var(--p2) 18%,var(--surface));border-color:var(--p2);color:var(--p2);font-weight:600}
 td.f.p3 select{background:color-mix(in srgb,var(--p3) 18%,var(--surface));border-color:var(--p3);color:var(--p3);font-weight:600}
+tr.row.p0>td{background:color-mix(in srgb,var(--p0) 12%,var(--surface))} tr.row.p1>td{background:color-mix(in srgb,var(--p1) 12%,var(--surface))} tr.row.p2>td{background:color-mix(in srgb,var(--p2) 12%,var(--surface))} tr.row.p3>td{background:color-mix(in srgb,var(--p3) 12%,var(--surface))}
 tr.row.p0>td.name{box-shadow:inset 4px 0 0 var(--p0)} tr.row.p1>td.name{box-shadow:inset 4px 0 0 var(--p1)} tr.row.p2>td.name{box-shadow:inset 4px 0 0 var(--p2)} tr.row.p3>td.name{box-shadow:inset 4px 0 0 var(--p3)}
+tr.row.p0:hover>td{background:color-mix(in srgb,var(--p0) 20%,var(--surface))} tr.row.p1:hover>td{background:color-mix(in srgb,var(--p1) 20%,var(--surface))} tr.row.p2:hover>td{background:color-mix(in srgb,var(--p2) 20%,var(--surface))} tr.row.p3:hover>td{background:color-mix(in srgb,var(--p3) 20%,var(--surface))}
 tr.detail>td{padding:8px 12px 12px 30px;border-top:1px solid var(--line);background:var(--surface-2);white-space:normal}
 .meta{font-size:12px;color:var(--muted);margin:0 0 8px;max-width:140ch}
 .pre{background:var(--ask-bg);color:var(--ask);border-radius:6px;padding:8px 12px;margin:0 0 10px;font-size:12.5px;max-width:140ch}
